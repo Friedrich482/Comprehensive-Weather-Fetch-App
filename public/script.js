@@ -75,7 +75,7 @@ function displayError(error){
     // Feels Like
     let feelsLikeDisplay = document.createElement('p');
     feelsLikeDisplay.id = 'feelsLikeDisplay'
-    feelsLikeDisplay.textContent = `Feels like ${(feels_like - 273.15).toFixed()}°C`;
+    feelsLikeDisplay.textContent = `Feels like : ${(feels_like - 273.15).toFixed()}°C`;
     card.appendChild(feelsLikeDisplay);
     
     // Description
@@ -97,15 +97,21 @@ function displayError(error){
     
     // Get the date of the location
     
-    let locationDate = getLocationDate(timezone);
-    let locationDateString = locationDate.toDateString();
-    let locationHour = locationDate.getHours();
-    let locationMins = locationDate.getMinutes();
-    let locationsecs = locationDate.getSeconds();
     let locationDateDisplay = document.createElement('p');
     locationDateDisplay.id = 'locationDateDisplay';
-    locationDateDisplay.textContent = `${locationDateString} ${locationHour}:${locationMins}:${locationsecs}`;
     card.appendChild(locationDateDisplay)
+
+    function setting(){
+        let locationDate = getLocationDate(timezone);
+        let locationDateString = locationDate.toDateString();
+        let locationHour = pad(locationDate.getHours());
+        let locationMins = pad(locationDate.getMinutes());
+        let locationsecs = pad(locationDate.getSeconds());
+
+        locationDateDisplay.textContent = `${locationDateString}, ${locationHour}:${locationMins}:${locationsecs}`;
+}
+    
+    setInterval(setting, 1000)
 }
 
 async function fetchCountry(countryCode){
@@ -131,7 +137,6 @@ function getLocationDate(timezone){
     let gmt = firstSlice.slice(0, firstSlice.indexOf(' '));
     gmt = Number(gmt);
     gmt = gmt / 100;
-    console.log(gmt);
 
     /* The previous part get the user current gmt+value or gmt-value, I get this 'value'
     So if somebody hasn't the same timezone than me, it still works.*/
@@ -145,7 +150,9 @@ function getLocationDate(timezone){
     return locationDate;
 }
 
-
+function pad(unit){
+    return unit < 10 ? "0" + unit : unit;
+}
 
 function displayEmoji(){
    
