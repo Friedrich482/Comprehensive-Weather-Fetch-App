@@ -4,6 +4,7 @@ body{
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    gap:4vh
 }
 form{
     margin-top: 12vh;
@@ -38,4 +39,12 @@ input[type='submit']:hover{
 
 input[type='submit']:active{
     background-color: hsl(0, 5%, 4%);
+}
+#card{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.1vh;
+
 }

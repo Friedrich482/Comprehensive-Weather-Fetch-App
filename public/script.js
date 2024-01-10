@@ -15,6 +15,7 @@ weatherForm.addEventListener('submit', async (event) =>{
     try{
         let response = await fetchData(cityEntered);
         console.log(response);
+        card.style.display = 'flex';
         displayData(response)
     }
 
@@ -28,7 +29,7 @@ async function fetchData(city){
     let response = await fetch(ApiUrl);
     
     if(!response.ok){
-        throw new Error("Couldn't fetch data ❌. Try again !")
+        throw new Error("Couldn't fetch data ❌, try again !")
     }
     else{
         return await response.json()
@@ -36,6 +37,7 @@ async function fetchData(city){
 }
 
 function displayError(error){
+    card.style.display = 'flex';
     errorDisplay.textContent = error;
     errorDisplay.style.fontFamily = 'MV Boli';
     errorDisplay.style.fontSize = '20px'
@@ -47,8 +49,8 @@ function displayError(error){
     const {name : city,
         main: {temp, humidity, feels_like},
         weather : [{description, id}],
-        sys: {country, sunrise, sunset}
-    
+        sys: {country, sunrise, sunset},
+        timezone : timezone
         } = data;
     // console.log(country, sunrise, sunset, feels_like)
 
@@ -90,9 +92,20 @@ function displayError(error){
 
     // Fetch the country for ISO3166-1.alpha2.json
     let actualCountry = await fetchCountry(countryCode)
-    console.log(actualCountry)
-    countryDisplay.textContent = `It seems that you're in ${actualCountry}`
+    cityDisplay.textContent += `, ${actualCountry}`
     card.appendChild(countryDisplay);
+    
+    // Get the date of the location
+    
+    let locationDate = getLocationDate(timezone);
+    let locationDateString = locationDate.toDateString();
+    let locationHour = locationDate.getHours();
+    let locationMins = locationDate.getMinutes();
+    let locationsecs = locationDate.getSeconds();
+    let locationDateDisplay = document.createElement('p');
+    locationDateDisplay.id = 'locationDateDisplay';
+    locationDateDisplay.textContent = `${locationDateString} ${locationHour}:${locationMins}:${locationsecs}`;
+    card.appendChild(locationDateDisplay)
 }
 
 async function fetchCountry(countryCode){
@@ -101,6 +114,38 @@ async function fetchCountry(countryCode){
     const countryName = await countriesCode[countryCode];
     return await countryName
 }
+
+function getLocationDate(timezone){
+    let locationDate;
+    let actualDate = (new Date()).toString()
+    let firstSlice;
+    let minus;
+    if(actualDate.indexOf('+') == -1){
+        firstSlice = actualDate.slice(actualDate.indexOf('-') + 1);
+        minus = true;
+    }
+    else{
+        firstSlice = actualDate.slice(actualDate.indexOf('+') + 1);
+    }
+    
+    let gmt = firstSlice.slice(0, firstSlice.indexOf(' '));
+    gmt = Number(gmt);
+    gmt = gmt / 100;
+    console.log(gmt);
+
+    /* The previous part get the user current gmt+value or gmt-value, I get this 'value'
+    So if somebody hasn't the same timezone than me, it still works.*/
+    
+    if(minus){
+        locationDate = new Date(Date.now() + timezone * 1000 + 3600000 * gmt)
+    }
+    else{
+        locationDate = new Date(Date.now() + timezone * 1000 - 3600000 * gmt)
+    }
+    return locationDate;
+}
+
+
 
 function displayEmoji(){
    
