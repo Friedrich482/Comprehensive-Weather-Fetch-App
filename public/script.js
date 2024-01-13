@@ -48,34 +48,39 @@ function displayError(error){
  async function displayData(data){
     const {name : city,
         main: {temp, humidity, feels_like},
-        weather : [{description, id}],
+        weather : [{description, id, icon}],
         sys: {country, sunrise, sunset},
         timezone : timezone
         } = data;
-    // console.log(country, sunrise, sunset, feels_like)
-    // console.log(sunset);
-    //Name
-    let cityDisplay = document.createElement('p');
-    cityDisplay.id = 'cityDisplay'
-    cityDisplay.textContent = city;
-    card.appendChild(cityDisplay);
 
+    let cityDisplay = document.createElement('div');
+    let marker = document.createElement('img');
+    marker.src = './icons/marker.png';
+    marker.style.height = '20px';
+    // marker.style.position = 'relative';
+    // marker.style.left = '2vh'
+    cityDisplay.id = 'cityDisplay';
+    
+    cityDisplay.textContent = `📍 ${city}`
+    
+    card.appendChild(cityDisplay);
+    
     // Standard temperature
     let tempDisplay = document.createElement('p');
     tempDisplay.id = 'tempDisplay'
-    tempDisplay.textContent = `${(temp - 273.15).toFixed()}°C`;
+    tempDisplay.textContent = `🌡️ ${(temp - 273.15).toFixed()}°C`;
     card.appendChild(tempDisplay);
 
     // Humidity
     let humidityDisplay = document.createElement('p');
     humidityDisplay.id = 'humidityDisplay'
-    humidityDisplay.textContent = `Humidity : ${humidity} %`;
+    humidityDisplay.textContent = `💧 Humidity : ${humidity} %`;
     card.appendChild(humidityDisplay);
 
     // Feels Like
     let feelsLikeDisplay = document.createElement('p');
     feelsLikeDisplay.id = 'feelsLikeDisplay'
-    feelsLikeDisplay.textContent = `Feels like : ${(feels_like - 273.15).toFixed()}°C`;
+    feelsLikeDisplay.textContent = `🌡️ Feels like : ${(feels_like - 273.15).toFixed()}°C`;
     card.appendChild(feelsLikeDisplay);
     
     // Description
@@ -118,7 +123,8 @@ function displayError(error){
     // Now, the sunrise and/or the sunset
     // let locationDate = getLocationDate(timezone).getTime();
     // console.log(new Date(Date.now() + sunset*1000));
-    displayEmoji(description, descriptionDisplay)
+    displayEmoji(icon, descriptionDisplay)
+    // card.appendChild(marker)
 }
 
 async function fetchCountry(countryCode){
@@ -161,7 +167,7 @@ function pad(unit){
     return unit < 10 ? "0" + unit : unit;
 }
 
-function displayEmoji(description, descriptionDisplay){
+function displayEmoji(icon, descriptionDisplay){
     let divIcon = document.createElement('div');
     divIcon.style.display = 'inline-block'
     let weatherIcon = document.createElement("img");
@@ -169,56 +175,11 @@ function displayEmoji(description, descriptionDisplay){
     weatherIcon.style.width = '50px';
     weatherIcon.style.position = 'relative';
     weatherIcon.style.top += '-3vh'
+    weatherIcon.src = `./icons/${icon}.png`
 
-    switch(description){
-        case "clear sky":
-            weatherIcon.src = "./icons/01d.png";
-            break
-        case "few clouds":
-            weatherIcon.src = "./icons/02d.png";
-            break;
-        case "scattered clouds":
-            weatherIcon.src = "./icons/03d.png";
-            break;
-        case "broken clouds":
-            weatherIcon.src = "./icons/04d.png";
-            break;
-        case "shower rain":
-            weatherIcon.src = "./icons/09d.png";
-            break;
-        case "rain":
-            weatherIcon.src = "./icons/10d.png";
-            break; 
-        case "thunderstorm":
-            weatherIcon.src = "./icons/11d.png";
-            break;      
-        case "snow":
-            weatherIcon.src = "./icons/13d.png";
-            break; 
-        case "mist":
-            weatherIcon.src = "./icons/50d.png";
-            break;
-        case "overcast clouds":
-            weatherIcon.src = "./icons/11d.png";
-            break;
-        case "light rain":
-            weatherIcon.src = "./icons/10d.png";
-            break;
-        
-        default:
-            weatherIcon.src = "./icons/";
-            break;
-    }
     divIcon.appendChild(weatherIcon);
     descriptionDisplay.appendChild(divIcon);
 }
 
-/*All parameters I will need : for the temperature : 
-I will need the TEMP, FEEL_LIKE, 
 
-After I will need in sys : COUNTRY(code  ISO 3166-1 alpha-2, that I will put in a json file), sunrise and sunset to display
-and display them dependly of the fact that it is actually day of night, with theM
-
-Exemple: display the sunset is the sunrise is actually passed (day), and the sunrise if the. Watever, maybe I will display them if it is an our left
-
-In wind, I need DEG and SPEED*/
+// In wind, I need DEG and SPEED
