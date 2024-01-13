@@ -53,7 +53,7 @@ function displayError(error){
         timezone : timezone
         } = data;
     // console.log(country, sunrise, sunset, feels_like)
-
+    // console.log(sunset);
     //Name
     let cityDisplay = document.createElement('p');
     cityDisplay.id = 'cityDisplay'
@@ -82,6 +82,8 @@ function displayError(error){
     let descriptionDisplay = document.createElement('p');
     descriptionDisplay.id = 'descriptionDisplay'
     descriptionDisplay.textContent = description;
+    descriptionDisplay.style.maxHeight = '40px';
+    descriptionDisplay.style.display = 'flex'
     card.appendChild(descriptionDisplay);
     
 
@@ -93,7 +95,7 @@ function displayError(error){
     // Fetch the country for ISO3166-1.alpha2.json
     let actualCountry = await fetchCountry(countryCode)
     cityDisplay.textContent += `, ${actualCountry}`
-    card.appendChild(countryDisplay);
+  
     
     // Get the date of the location
     
@@ -109,9 +111,14 @@ function displayError(error){
         let locationsecs = pad(locationDate.getSeconds());
 
         locationDateDisplay.textContent = `${locationDateString}, ${locationHour}:${locationMins}:${locationsecs}`;
-}
+    }
     
     setInterval(setting, 1000)
+
+    // Now, the sunrise and/or the sunset
+    // let locationDate = getLocationDate(timezone).getTime();
+    // console.log(new Date(Date.now() + sunset*1000));
+    displayEmoji(description, descriptionDisplay)
 }
 
 async function fetchCountry(countryCode){
@@ -154,8 +161,56 @@ function pad(unit){
     return unit < 10 ? "0" + unit : unit;
 }
 
-function displayEmoji(){
-   
+function displayEmoji(description, descriptionDisplay){
+    let divIcon = document.createElement('div');
+    divIcon.style.display = 'inline-block'
+    let weatherIcon = document.createElement("img");
+    weatherIcon.style.height = '50px'
+    weatherIcon.style.width = '50px';
+    weatherIcon.style.position = 'relative';
+    weatherIcon.style.top += '-3vh'
+
+    switch(description){
+        case "clear sky":
+            weatherIcon.src = "./icons/01d.png";
+            break
+        case "few clouds":
+            weatherIcon.src = "./icons/02d.png";
+            break;
+        case "scattered clouds":
+            weatherIcon.src = "./icons/03d.png";
+            break;
+        case "broken clouds":
+            weatherIcon.src = "./icons/04d.png";
+            break;
+        case "shower rain":
+            weatherIcon.src = "./icons/09d.png";
+            break;
+        case "rain":
+            weatherIcon.src = "./icons/10d.png";
+            break; 
+        case "thunderstorm":
+            weatherIcon.src = "./icons/11d.png";
+            break;      
+        case "snow":
+            weatherIcon.src = "./icons/13d.png";
+            break; 
+        case "mist":
+            weatherIcon.src = "./icons/50d.png";
+            break;
+        case "overcast clouds":
+            weatherIcon.src = "./icons/11d.png";
+            break;
+        case "light rain":
+            weatherIcon.src = "./icons/10d.png";
+            break;
+        
+        default:
+            weatherIcon.src = "./icons/";
+            break;
+    }
+    divIcon.appendChild(weatherIcon);
+    descriptionDisplay.appendChild(divIcon);
 }
 
 /*All parameters I will need : for the temperature : 

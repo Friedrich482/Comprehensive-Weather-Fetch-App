@@ -4,7 +4,8 @@ body{
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap:4vh
+    gap:4vh;
+    font-family: 'MV Boli';
 }
 form{
     margin-top: 12vh;
@@ -45,6 +46,9 @@ input[type='submit']:active{
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: 0.1vh;
+    gap: 0vh;
 
+}
+p{
+    max-height: 2vh;
 }
