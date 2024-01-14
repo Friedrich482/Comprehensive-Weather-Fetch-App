@@ -50,9 +50,10 @@ function displayError(error){
         main: {temp, humidity, feels_like},
         weather : [{description, id, icon}],
         sys: {country, sunrise, sunset},
-        timezone : timezone
+        timezone : timezone,
+        wind : {deg, speed}
         } = data;
-
+    
     let cityDisplay = document.createElement('div');
     let marker = document.createElement('img');
     marker.src = './icons/marker.png';
@@ -84,6 +85,12 @@ function displayError(error){
     feelsLikeDisplay.textContent = `🌡️ Feels like : ${(feels_like - 273.15).toFixed()}°C`;
     card.appendChild(feelsLikeDisplay);
     
+    //Wind and speed wind
+    let WindDisplay = document.createElement('p');
+    WindDisplay.id = 'WindDisplay';
+    WindDisplay.textContent = `➣ ${deg} ${speed}`
+    card.appendChild(WindDisplay);
+
     // Description
     let descriptionDisplay = document.createElement('p');
     descriptionDisplay.style.fontWeight = '900';
@@ -102,8 +109,7 @@ function displayError(error){
     // Fetch the country for ISO3166-1.alpha2.json
     let actualCountry = await fetchCountry(countryCode)
     cityDisplay.textContent += `, ${actualCountry}`
-  
-    
+
     // Get the date of the location
     
     let locationDateDisplay = document.createElement('p');
@@ -121,12 +127,7 @@ function displayError(error){
     }
     
     setInterval(setting, 1000)
-
-    // Now, the sunrise and/or the sunset
-    // let locationDate = getLocationDate(timezone).getTime();
-    // console.log(new Date(Date.now() + sunset*1000));
     displayEmoji(icon, descriptionDisplay)
-    // card.appendChild(marker)
 }
 
 async function fetchCountry(countryCode){

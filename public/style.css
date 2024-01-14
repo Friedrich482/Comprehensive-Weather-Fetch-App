@@ -4,7 +4,7 @@ body{
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap:0vh;
+
     font-family: 'MV Boli';
     background:url('img/01.png');
     background-repeat: no-repeat;
@@ -13,8 +13,8 @@ body{
     background-position: center;
 }
 h1{
-    font-size: 50px;
-
+    font-size:45px;
+    margin: 0;
 }
 form{
     margin-top: 0.5vh;
@@ -43,7 +43,6 @@ input[type='submit']{
 }
 
 input[type='submit']:hover{
-    /* border: 3px solid lightblue; */
     scale: 1.1;
 }
 
@@ -77,4 +76,7 @@ p{
 
 #tempDisplay{
     font-size: 17px;
+}
+#locationDateDisplay{
+    min-width: 50vh;
 }
