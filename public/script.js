@@ -181,7 +181,26 @@ function displayEmoji(icon, descriptionDisplay){
 
     divIcon.appendChild(weatherIcon);
     descriptionDisplay.appendChild(divIcon);
+    
+    let string = String(icon);
+    let body = document.body;
+    if(string.indexOf("n") != -1){
+        body.style.background = "url(./img/03.jpeg)"
+        body.style.backgroundSize = 'cover';
+        body.style.backgroundRepeat = 'no-repeat'
+        body.style.backgroundAttachment = 'fixed'
+        body.style.backgroundPosition = 'center'
+        body.style.color = 'whitesmoke';
+        descriptionDisplay.style.color = 'whitesmoke';
+    }
+    else{
+        body.style.background = "url(./img/01.png)";
+        body.style.backgroundSize = 'cover';
+        body.style.backgroundRepeat = 'no-repeat'
+        body.style.backgroundAttachment = 'fixed'
+        body.style.backgroundPosition = 'center'
+        body.style.color = 'black';
+        descriptionDisplay.style.color = 'black'
+    }
 }
-
-
 // In wind, I need DEG and SPEED
