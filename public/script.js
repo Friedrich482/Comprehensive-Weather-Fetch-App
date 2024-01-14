@@ -178,7 +178,7 @@ function displayEmoji(icon, descriptionDisplay){
     weatherIcon.style.width = '50px';
     weatherIcon.style.position = 'relative';
     weatherIcon.style.top += '-3vh'
-    weatherIcon.src = `./icons/${icon}.png`
+    weatherIcon.src = `./icons/${icon}.svg`
 
     divIcon.appendChild(weatherIcon);
     descriptionDisplay.appendChild(divIcon);

@@ -13,8 +13,17 @@ body{
     background-position: center;
 }
 h1{
-    font-size:45px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: row;
+    font-size:50px;
     margin-top: 0;
+    gap: 0vh;
+}
+.titleIcons{
+    height: 75px; 
+    width : 75px; 
 }
 form{
     margin-top: 0.5vh;
@@ -80,3 +89,4 @@ p{
 #locationDateDisplay{
     min-width: 50vh;
 }
+
