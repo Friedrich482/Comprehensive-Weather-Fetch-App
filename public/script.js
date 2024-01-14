@@ -57,12 +57,13 @@ function displayError(error){
     let marker = document.createElement('img');
     marker.src = './icons/marker.png';
     marker.style.height = '20px';
+    marker.id = 'marker'
     // marker.style.position = 'relative';
     // marker.style.left = '2vh'
     cityDisplay.id = 'cityDisplay';
     
-    cityDisplay.textContent = `📍 ${city}`
-    
+    cityDisplay.textContent = `${city}`
+    cityDisplay.append(marker)
     card.appendChild(cityDisplay);
     
     // Standard temperature
@@ -85,6 +86,7 @@ function displayError(error){
     
     // Description
     let descriptionDisplay = document.createElement('p');
+    descriptionDisplay.style.fontWeight = '900';
     descriptionDisplay.id = 'descriptionDisplay'
     descriptionDisplay.textContent = description;
     descriptionDisplay.style.maxHeight = '40px';
@@ -115,7 +117,7 @@ function displayError(error){
         let locationMins = pad(locationDate.getMinutes());
         let locationsecs = pad(locationDate.getSeconds());
 
-        locationDateDisplay.textContent = `${locationDateString}, ${locationHour}:${locationMins}:${locationsecs}`;
+        locationDateDisplay.textContent = `📅 ${locationDateString}, ${locationHour}:${locationMins}:${locationsecs}`;
     }
     
     setInterval(setting, 1000)

@@ -4,11 +4,19 @@ body{
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap:4vh;
+    gap:0vh;
     font-family: 'MV Boli';
+    background:url('img/01.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+h1{
+    font-size: 50px;
 }
 form{
-    margin-top: 12vh;
+    margin-top: 0.5vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -34,7 +42,7 @@ input[type='submit']{
 }
 
 input[type='submit']:hover{
-    border: 3px solid lightblue;
+    /* border: 3px solid lightblue; */
     scale: 1.1;
 }
 
@@ -47,8 +55,24 @@ input[type='submit']:active{
     justify-content: center;
     flex-direction: column;
     gap: 0vh;
-
+    text-align: center;
 }
 p{
     max-height: 2vh;
+}
+#descriptionDisplay{
+    color: hsl(348, 5%, 19%)
+}
+
+#marker{
+    height: 40px
+}
+
+#cityDisplay{
+    font-weight: bold;
+    font-size: 22px;
+}
+
+#tempDisplay{
+    font-size: 17px;
 }
