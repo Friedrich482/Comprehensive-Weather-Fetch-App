@@ -84,11 +84,11 @@ function displayError(error){
     feelsLikeDisplay.id = 'feelsLikeDisplay'
     feelsLikeDisplay.textContent = `🌡️ Feels like : ${(feels_like - 273.15).toFixed()}°C`;
     card.appendChild(feelsLikeDisplay);
-    
+
     //Wind and speed wind
     let WindDisplay = document.createElement('p');
     WindDisplay.id = 'WindDisplay';
-    WindDisplay.textContent = `➣ ${deg} ${speed}`
+    WindDisplay.textContent = ` 🌬️ ${deg} degrees, 💨${speed} meter/sec`
     card.appendChild(WindDisplay);
 
     // Description
