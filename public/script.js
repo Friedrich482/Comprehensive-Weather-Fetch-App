@@ -185,6 +185,7 @@ function displayEmoji(icon, descriptionDisplay){
     
     let string = String(icon);
     let body = document.body;
+    let sunOrMoon = document.querySelector('#sunOrMoon')
     if(string.indexOf("n") != -1){
         body.style.background = "url(./img/03.jpeg)"
         body.style.backgroundSize = 'cover';
@@ -193,6 +194,8 @@ function displayEmoji(icon, descriptionDisplay){
         body.style.backgroundPosition = 'center'
         body.style.color = 'whitesmoke';
         descriptionDisplay.style.color = 'whitesmoke';
+
+       sunOrMoon.src  = './icons/titleIcons/clear-night.svg'
     }
     else{
         body.style.background = "url(./img/01.png)";
@@ -202,5 +205,7 @@ function displayEmoji(icon, descriptionDisplay){
         body.style.backgroundPosition = 'center'
         body.style.color = 'black';
         descriptionDisplay.style.color = 'black'
+
+        sunOrMoon.src  = './icons/titleIcons/clear-day.svg'
     }
 }
