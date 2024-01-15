@@ -90,3 +90,42 @@ p{
     min-width: 50vh;
 }
 
+#tempIcon, #feelsIcon{
+   height: 40px;
+   width: 50px;
+}
+#tempDisplay, #humidityDisplay,#feelsLikeDisplay, #WindDisplay{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    /* text-align: center; */
+}
+#humidityIcon{
+    height: 30px;
+    width: 30px;
+    position: relative;
+    /* bottom:2vh; */
+}
+
+#windIcon, #speedIcon{
+    height: 30px;
+    width: 30px;
+    position: relative;
+    bottom:2vh;
+    left: 6vh;
+}
+
+#WindDisplay{
+    position: relative;
+    bottom: 6vh;
+}
+.windSpan{
+    position: relative;
+    bottom: 4vh;
+    left: 6vh;
+}
+#descriptionDisplay{
+    position: relative;
+    left: 6vh
+}

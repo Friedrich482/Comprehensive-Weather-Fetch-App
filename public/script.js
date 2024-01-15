@@ -56,40 +56,74 @@ function displayError(error){
     
     let cityDisplay = document.createElement('div');
     let marker = document.createElement('img');
-    marker.src = './icons/marker.png';
+    marker.src = './icons/cardIcons/marker.png';
     marker.style.height = '20px';
     marker.id = 'marker'
-    // marker.style.position = 'relative';
-    // marker.style.left = '2vh'
+  
     cityDisplay.id = 'cityDisplay';
     
-    cityDisplay.textContent = `${city}`
-    cityDisplay.append(marker)
+    cityDisplay.textContent = `\u0009 ${city}`
+    
     card.appendChild(cityDisplay);
     
     // Standard temperature
+    let tempIcon = document.createElement('img');
+    tempIcon.src = './icons/cardIcons/thermometer.svg';
+    tempIcon.id = 'tempIcon'
+
     let tempDisplay = document.createElement('p');
     tempDisplay.id = 'tempDisplay'
-    tempDisplay.textContent = `🌡️ ${(temp - 273.15).toFixed()}°C`;
+    tempDisplay.textContent = ` ${(temp - 273.15).toFixed()}°C`;
+    tempDisplay.prepend(tempIcon)
     card.appendChild(tempDisplay);
-
+    
     // Humidity
+    let humidityIcon = document.createElement('img');
+    humidityIcon.src = './icons/cardIcons/humidity.svg';
+    humidityIcon.id = 'humidityIcon'
+
     let humidityDisplay = document.createElement('p');
     humidityDisplay.id = 'humidityDisplay'
-    humidityDisplay.textContent = `💧 Humidity : ${humidity} %`;
+    humidityDisplay.textContent = ` Humidity : ${humidity} %`;
+    humidityDisplay.prepend(humidityIcon)
     card.appendChild(humidityDisplay);
 
     // Feels Like
+    let feelsIcon = document.createElement('img');
+    feelsIcon.src = './icons/cardIcons/thermometer.svg';
+    feelsIcon.id = 'feelsIcon'
+
     let feelsLikeDisplay = document.createElement('p');
     feelsLikeDisplay.id = 'feelsLikeDisplay'
-    feelsLikeDisplay.textContent = `🌡️ Feels like : ${(feels_like - 273.15).toFixed()}°C`;
+    feelsLikeDisplay.textContent = ` Feels like : ${(feels_like - 273.15).toFixed()}°C`;
+    feelsLikeDisplay.prepend(feelsIcon)
     card.appendChild(feelsLikeDisplay);
 
     //Wind and speed wind
-    let WindDisplay = document.createElement('p');
-    WindDisplay.id = 'WindDisplay';
-    WindDisplay.textContent = ` 🌬️ ${deg} degrees, 💨${speed} meter/sec`
-    card.appendChild(WindDisplay);
+    let windIcon = document.createElement('img');
+    windIcon.src = './icons/cardIcons/wind.svg';
+    windIcon.id = 'windIcon'
+    
+    let speedIcon = document.createElement('img');
+    speedIcon.src = './icons/cardIcons/windsock.svg';
+    speedIcon.id = 'speedIcon'
+
+    let windDisplay = document.createElement('p');
+    let windSpan = document.createElement('span');
+    let speedSpan = document.createElement('span');
+
+    windSpan.classList.add('windSpan');
+    speedSpan.classList.add('windSpan');
+    
+    windSpan.textContent = `  ${deg} degrees \u0009||\u0009`
+    speedSpan.textContent = `${speed} meters/s`;
+    windDisplay.id = 'windDisplay';
+
+    windDisplay.prepend(windIcon);
+    windDisplay.append(windSpan);
+    windDisplay.append(speedSpan);
+    windDisplay.append(speedIcon)
+    card.appendChild(windDisplay);
 
     // Description
     let descriptionDisplay = document.createElement('p');
@@ -109,7 +143,7 @@ function displayError(error){
     // Fetch the country for ISO3166-1.alpha2.json
     let actualCountry = await fetchCountry(countryCode)
     cityDisplay.textContent += `, ${actualCountry}`
-
+    cityDisplay.prepend(marker)
     // Get the date of the location
     
     let locationDateDisplay = document.createElement('p');
