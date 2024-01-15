@@ -178,7 +178,7 @@ function displayEmoji(icon, descriptionDisplay){
     weatherIcon.style.width = '50px';
     weatherIcon.style.position = 'relative';
     weatherIcon.style.top += '-3vh'
-    weatherIcon.src = `./icons/${icon}.svg`
+    weatherIcon.src = `./icons/openweathermap/${icon}.svg`
 
     divIcon.appendChild(weatherIcon);
     descriptionDisplay.appendChild(divIcon);
@@ -204,4 +204,3 @@ function displayEmoji(icon, descriptionDisplay){
         descriptionDisplay.style.color = 'black'
     }
 }
-// In wind, I need DEG and SPEED
