@@ -1,4 +1,4 @@
-<h1>Fetch weather app ❄🌨☀️</h1>
+<h1>Comprehensive Weather Fetch App ❄🌨☀️</h1>
 A program made with <b>JavaScript</b> 🌐 that displays the current weather 🌦️ of the city you enter. Created using openweathermap.org API .
 <br>Here are the informations that are displayed :
 <br>
