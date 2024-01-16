@@ -210,7 +210,7 @@ function displayEmoji(icon, descriptionDisplay){
     let weatherIcon = document.createElement("img");
     weatherIcon.style.height = '50px'
     weatherIcon.style.width = '50px';
-    weatherIcon.src = `./icons/openweathermap/${icon}.svg`
+    weatherIcon.src = `./icons/Openweathermap/${icon}.svg`
     weatherIcon.id = 'weatherIcon';
     descriptionDisplay.appendChild(weatherIcon);
     
