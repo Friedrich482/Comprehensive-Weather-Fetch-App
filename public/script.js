@@ -2,7 +2,7 @@ let weatherForm = document.getElementById('weatherForm')
 let card = document.getElementById('card')
 let errorDisplay = document.getElementById('errorDisplay')
 let apiKey = "2232101b7a4c133da51de8620fc86462"
-
+let footer = document.querySelector('footer');
 weatherForm.addEventListener('submit', async (event) =>{
     card.textContent = ''
     event.preventDefault()
@@ -16,7 +16,8 @@ weatherForm.addEventListener('submit', async (event) =>{
         let response = await fetchData(cityEntered);
         console.log(response);
         card.style.display = 'flex';
-        displayData(response)
+        displayData(response);
+        displayFooter(footer)
     }
 
     catch(error){
@@ -108,7 +109,7 @@ function displayError(error){
     speedIcon.src = './icons/cardIcons/windsock.svg';
     speedIcon.id = 'speedIcon'
 
-    let windDisplay = document.createElement('p');
+    let windDisplay = document.createElement('d');
     let windSpan = document.createElement('span');
     let speedSpan = document.createElement('span');
 
@@ -205,17 +206,13 @@ function pad(unit){
 }
 
 function displayEmoji(icon, descriptionDisplay){
-    let divIcon = document.createElement('div');
-    divIcon.style.display = 'inline-block'
+
     let weatherIcon = document.createElement("img");
     weatherIcon.style.height = '50px'
     weatherIcon.style.width = '50px';
-    weatherIcon.style.position = 'relative';
-    weatherIcon.style.top += '-3vh'
     weatherIcon.src = `./icons/openweathermap/${icon}.svg`
-
-    divIcon.appendChild(weatherIcon);
-    descriptionDisplay.appendChild(divIcon);
+    weatherIcon.id = 'weatherIcon';
+    descriptionDisplay.appendChild(weatherIcon);
     
     let string = String(icon);
     let body = document.body;
@@ -242,4 +239,8 @@ function displayEmoji(icon, descriptionDisplay){
 
         sunOrMoon.src  = './icons/titleIcons/clear-day.svg'
     }
+}
+
+function displayFooter(footer){
+    footer.style.display = 'flex';
 }

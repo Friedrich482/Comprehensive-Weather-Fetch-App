@@ -11,6 +11,7 @@ body{
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
+    min-height: 10rem;
 }
 h1{
     display: flex;
@@ -30,7 +31,7 @@ form{
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 2vh
+    gap: 5vh
 }
 input[type="text"]{
     font-size: 22px;
@@ -60,9 +61,8 @@ input[type='submit']:active{
 }
 #card{
     margin-top: 5vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    place-content: center;
     flex-direction: column;
     gap: 0vh;
     text-align: center;
@@ -71,9 +71,17 @@ p{
     max-height: 2vh;
 }
 #descriptionDisplay{
-    color: hsl(348, 5%, 19%)
+    color: hsl(348, 5%, 19%);
+    margin: 0px;
+    display: grid;
+    place-content: center;
+    gap: 1rem;
+    grid-template-columns: repeat(5, 1fr);
 }
-
+#weatherIcon{
+    position:relative;
+    top: -1rem;
+}
 #marker{
     height: 40px
 }
@@ -94,38 +102,32 @@ p{
    height: 40px;
    width: 50px;
 }
-#tempDisplay, #humidityDisplay,#feelsLikeDisplay, #WindDisplay{
+#tempDisplay, #humidityDisplay,#feelsLikeDisplay{
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: row;
-    /* text-align: center; */
 }
 #humidityIcon{
     height: 30px;
     width: 30px;
     position: relative;
-    /* bottom:2vh; */
+
 }
 
 #windIcon, #speedIcon{
     height: 30px;
     width: 30px;
     position: relative;
-    bottom:2vh;
-    left: 6vh;
+    top: 0rem;
 }
 
 #WindDisplay{
-    position: relative;
-    bottom: 6vh;
+    display: grid;
+    place-content: center;
+    padding-bottom: 1rem;
 }
 .windSpan{
     position: relative;
-    bottom: 4vh;
-    left: 6vh;
-}
-#descriptionDisplay{
-    position: relative;
-    left: 6vh
+    bottom: 0.5rem;
 }
