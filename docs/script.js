@@ -3,6 +3,7 @@ let card = document.getElementById('card')
 let errorDisplay = document.getElementById('errorDisplay')
 let apiKey = "2232101b7a4c133da51de8620fc86462"
 let footer = document.querySelector('footer');
+let displayft = false
 weatherForm.addEventListener('submit', async (event) =>{
     card.textContent = ''
     event.preventDefault()
@@ -17,7 +18,8 @@ weatherForm.addEventListener('submit', async (event) =>{
         console.log(response);
         card.style.display = 'flex';
         displayData(response);
-        displayFooter(footer)
+        displayft = true;
+        displayFooter(footer, displayft)
     }
 
     catch(error){
@@ -38,15 +40,17 @@ async function fetchData(city){
 }
 
 function displayError(error){
-    card.style.display = 'flex';
     errorDisplay.textContent = error;
     errorDisplay.style.fontFamily = 'MV Boli';
     errorDisplay.style.fontSize = '20px'
     errorDisplay.style.color = 'red';
-    card.appendChild(errorDisplay);
+    errorDisplay.style.display = 'flex;'
+    body.appendChild(errorDisplay);
+    
+
 }
 
- async function displayData(data){
+ async function displayData(data, displayft){
     const {name : city,
         main: {temp, humidity, feels_like},
         weather : [{description, id, icon}],
@@ -162,7 +166,8 @@ function displayError(error){
     }
     
     setInterval(setting, 1000)
-    displayEmoji(icon, descriptionDisplay)
+    displayEmoji(icon, descriptionDisplay);
+    
 }
 
 async function fetchCountry(countryCode){
@@ -241,6 +246,9 @@ function displayEmoji(icon, descriptionDisplay){
     }
 }
 
-function displayFooter(footer){
-    footer.style.display = 'flex';
+function displayFooter(footer, displayft){
+    if(displayft){
+        footer.style.display = 'flex';
+    }
+    
 }

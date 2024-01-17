@@ -1,40 +1,48 @@
 body{
-    margin: 0;
+    /* margin: 0; */
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-
     font-family: 'MV Boli';
+    flex-wrap: wrap;
     background:url('img/01.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
-    min-height: 10rem;
+    gap:0rem;
+}
+#spanTittle{
+    text-align: center;
 }
 h1{
     display: flex;
     text-align: center;
     justify-content: center;
     flex-direction: row;
-    font-size:50px;
+    flex-wrap: wrap;
+    font-size:3.5rem;
     margin-top: 0;
+    margin-bottom: 0;
     gap: 0vh;
+    
 }
 .titleIcons{
-    height: 75px; 
-    width : 75px; 
+    height: 4.7rem;
+    width : 4.7rem;
 }
 form{
     margin-top: 0.5vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5vh
+    flex-wrap: wrap;
+    gap: 2rem;
+
 }
 input[type="text"]{
-    font-size: 22px;
+    font-size: 1.38rem;
     border-radius: 20px;
     border: 3px inset hsl(220, 86%, 54%);
     text-align: center;
@@ -43,12 +51,12 @@ input[type="text"]{
 }
 input[type='submit']{
     border: 3px solid transparent;
-    font-size: 22px;
+    font-size: 1.375rem;
     background-color: hsla(0, 0%, 0%, 0.899);
     border-radius: 20px;
     padding: 3px;
     font-family: 'MV Boli';
-    min-width: 20vh;
+    min-width: 4rem;
     color: whitesmoke;
 }
 
@@ -60,15 +68,16 @@ input[type='submit']:active{
     background-color: hsl(0, 5%, 4%);
 }
 #card{
-    margin-top: 5vh;
-    display: grid;
-    place-content: center;
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
-    gap: 0vh;
+    gap: 1rem;
     text-align: center;
 }
 p{
-    max-height: 2vh;
+    max-height: 2rem
 }
 #descriptionDisplay{
     color: hsl(348, 5%, 19%);
@@ -77,13 +86,14 @@ p{
     place-content: center;
     gap: 1rem;
     grid-template-columns: repeat(5, 1fr);
+    text-align: center;
 }
 #weatherIcon{
     position:relative;
     top: -1rem;
 }
 #marker{
-    height: 40px
+    max-height: 2.5rem
 }
 
 #cityDisplay{
@@ -92,10 +102,10 @@ p{
 }
 
 #tempDisplay{
-    font-size: 17px;
+    font-size: 1.02rem;
 }
 #locationDateDisplay{
-    min-width: 50vh;
+    min-width: 4rem
 }
 
 #tempIcon, #feelsIcon{
@@ -130,4 +140,9 @@ p{
 .windSpan{
     position: relative;
     bottom: 0.5rem;
+}
+
+footer{
+    text-align: center;
+   
 }
