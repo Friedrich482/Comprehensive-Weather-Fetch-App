@@ -8,21 +8,22 @@ Have a quick show : [Comprehensive Weather App](https://friedrich482.github.io/C
 
 Here are the informations that are displayed :
 
--The city 🏙️ and the country 🌍
+- The city 🏙️ and the country 🌍
 
--The temperature  🌡️ (in degrees °C)  
+- The temperature  🌡️ (in degrees °C)  
 
--The humidity 💧 (in percent %)  
+- The humidity 💧 (in percent %)  
 
--"*Feels like 🌬️* " (also in degrees °C)  
+- "*Feels like 🌬️* " (also in degrees °C)  
 
--The description 📊  
+- The description 📊  
 
--The day and the time 📅 (in real time) of the city entered
+- The day and the time 📅 (in real time) of the city entered
 
-To run it, simply clone the repository on your machine.
+To run it, simply clone the repository on your machine.  
+
 `git clone https://github.com/Friedrich482/Comprehensive-Weather-Fetch-App.git`
 
-Then open it with your code editor,and open in your browser to see the result and use it.
+Then open it with your code editor, and open in your browser to see the result and use it.
 ![Image](/docs/img/weatherAppPr.png)
 You can join using my mail address 📧 : <friedricht109@gmail.com>
