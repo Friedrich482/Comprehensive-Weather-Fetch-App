@@ -120,7 +120,7 @@ function displayError(error){
     windSpan.classList.add('windSpan');
     speedSpan.classList.add('windSpan');
     
-    windSpan.textContent = `  ${deg} degrees \u0009||\u0009`
+    windSpan.textContent = `  ${deg} degrees \t||\u0009`
     speedSpan.textContent = `${speed} meters/s`;
     windDisplay.id = 'windDisplay';
 
@@ -223,7 +223,7 @@ function displayEmoji(icon, descriptionDisplay){
     let body = document.body;
     let sunOrMoon = document.querySelector('#sunOrMoon')
     if(string.indexOf("n") != -1){
-        body.style.background = "url(./img/03.jpeg)"
+        body.style.background = "url(./img/03.png)"
         body.style.backgroundSize = 'cover';
         body.style.backgroundRepeat = 'no-repeat'
         body.style.backgroundAttachment = 'fixed'
