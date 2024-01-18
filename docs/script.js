@@ -243,6 +243,10 @@ function displayEmoji(icon, descriptionDisplay){
     let sunOrMoon = document.querySelector('#sunOrMoon')
     if(string.indexOf("n") != -1){
         body.style.background = "url(./img/03.png)"
+
+        marker.src = './icons/cardIcons/markerNight.png';
+        marker.style.height = '20px';
+
         body.style.backgroundSize = 'cover';
         body.style.backgroundRepeat = 'no-repeat'
         body.style.backgroundAttachment = 'fixed'
@@ -250,10 +254,14 @@ function displayEmoji(icon, descriptionDisplay){
         body.style.color = 'whitesmoke';
         descriptionDisplay.style.color = 'whitesmoke';
 
-       sunOrMoon.src  = './icons/titleIcons/clear-night.svg'
+        sunOrMoon.src  = './icons/titleIcons/clear-night.svg'
     }
     else{
         body.style.background = "url(./img/01.png)";
+
+        marker.src = './icons/cardIcons/marker.png';
+        marker.style.height = '20px';
+        
         body.style.backgroundSize = 'cover';
         body.style.backgroundRepeat = 'no-repeat'
         body.style.backgroundAttachment = 'fixed'
