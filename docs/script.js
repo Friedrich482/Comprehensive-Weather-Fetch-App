@@ -156,12 +156,17 @@ function displayError(error){
 
     function setting(){
         let locationDate = getLocationDate(timezone);
-        let locationDateString = locationDate.toDateString();
+        let day = locationDate.getDate();
+        let month = locationDate.getMonth();
+        let year = locationDate.getFullYear()
+        let weekDay = locationDate.getDay();
+        month = stringMonths(month);
+        weekDay = stringWeekDay(weekDay)
         let locationHour = pad(locationDate.getHours());
         let locationMins = pad(locationDate.getMinutes());
         let locationsecs = pad(locationDate.getSeconds());
 
-        locationDateDisplay.textContent = `📅 ${locationDateString}, ${locationHour}:${locationMins}:${locationsecs}`;
+        locationDateDisplay.textContent = `📅 ${weekDay} ${day} ${month} ${year}, ${locationHour}:${locationMins}:${locationsecs}`;
     }
     
     setInterval(setting, 1000)
@@ -209,6 +214,21 @@ function pad(unit){
     return unit < 10 ? "0" + unit : unit;
 }
 
+
+function stringMonths(month){
+    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    return months[month];
+}
+
+function stringWeekDay(day){
+    let days = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    return days[day];
+}
+
+function padDate(day){
+    return day <= 9 ? "0" + day : day;
+}
+ 
 function displayEmoji(icon, descriptionDisplay){
 
     let weatherIcon = document.createElement("img");

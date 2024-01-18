@@ -153,3 +153,12 @@ footer{
     text-align: center;
     flex: 1;
 }
+/* #gitLink{
+    color: whitesmoke;
+    text-decoration: none;
+}
+#gitLink:hover{
+    text-decoration: underline;
+    color: hsl(330, 84%, 46%);
+    box-shadow: 0 0.5rem 8px black;
+} */
