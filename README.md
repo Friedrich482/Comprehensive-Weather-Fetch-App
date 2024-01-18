@@ -21,8 +21,11 @@ Here are the informations that are displayed :
 - The day and the time 📅 (in real time) of the city entered
 
 To run it, simply clone the repository on your machine.  
+  
+``` bash
+git clone https://github.com/Friedrich482/Comprehensive-Weather-Fetch-App.git
 
-`git clone https://github.com/Friedrich482/Comprehensive-Weather-Fetch-App.git`
+```
 
 Then open it with your code editor, and open in your browser to see the result and use it.
 ![Image](/docs/img/weatherAppPr.png)
