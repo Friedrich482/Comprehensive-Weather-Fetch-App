@@ -139,6 +139,13 @@ input[type='submit']:active{
     top: 0rem;
 }
 
+#timeIcon{
+    height:20px;
+    width: 20px;
+    position: relative;
+    top: 0.2rem;
+}
+
 #WindDisplay{
     display: grid;
     place-content: center;

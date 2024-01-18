@@ -160,13 +160,19 @@ function displayError(error){
         let month = locationDate.getMonth();
         let year = locationDate.getFullYear()
         let weekDay = locationDate.getDay();
+
         month = stringMonths(month);
-        weekDay = stringWeekDay(weekDay)
+        weekDay = stringWeekDay(weekDay);
+
         let locationHour = pad(locationDate.getHours());
         let locationMins = pad(locationDate.getMinutes());
         let locationsecs = pad(locationDate.getSeconds());
+        let timeIcon = document.createElement('img');
+        timeIcon.src = './icons/cardIcons/date.gif';
+        timeIcon.id = 'timeIcon';
 
-        locationDateDisplay.textContent = `📅 ${weekDay} ${day} ${month} ${year}, ${locationHour}:${locationMins}:${locationsecs}`;
+        locationDateDisplay.textContent = ` ${weekDay} ${day} ${month} ${year}, ${locationHour}:${locationMins}:${locationsecs}`;
+        locationDateDisplay.prepend(timeIcon)
     }
     
     setInterval(setting, 1000)
@@ -261,7 +267,7 @@ function displayEmoji(icon, descriptionDisplay){
 
         marker.src = './icons/cardIcons/marker.png';
         marker.style.height = '20px';
-        
+
         body.style.backgroundSize = 'cover';
         body.style.backgroundRepeat = 'no-repeat'
         body.style.backgroundAttachment = 'fixed'
