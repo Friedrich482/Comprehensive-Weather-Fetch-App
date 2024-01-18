@@ -1,7 +1,7 @@
 body{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     flex-direction: column;
     font-family: 'MV Boli';
     flex-wrap: wrap;
@@ -11,7 +11,7 @@ body{
     background-attachment: fixed;
     background-position: center;
     min-height: 1rem;
-    gap:0rem;
+    gap: 0rem;
     margin: 0;
 }
 #spanTittle{
@@ -79,9 +79,10 @@ input[type='submit']:active{
     flex-direction: column;
     text-align: center;
 }
-p{
+/* p{
     max-height: 2rem
-}
+} */
+
 #descriptionDisplay{
     color: hsl(348, 5%, 19%);
     margin: 0px;
@@ -150,5 +151,5 @@ p{
 
 footer{
     text-align: center;
-   
+    flex: 1;
 }

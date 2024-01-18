@@ -1,9 +1,9 @@
 let weatherForm = document.getElementById('weatherForm')
 let card = document.getElementById('card')
-let errorDisplay = document.getElementById('errorDisplay')
+let errorDisplay = document.querySelector('#errorDisplay')
 let apiKey = "2232101b7a4c133da51de8620fc86462"
 let footer = document.querySelector('footer');
-let displayft = false
+let displayft = false;
 weatherForm.addEventListener('submit', async (event) =>{
     card.textContent = ''
     event.preventDefault()
@@ -18,6 +18,7 @@ weatherForm.addEventListener('submit', async (event) =>{
         console.log(response);
         card.style.display = 'flex';
         displayData(response);
+        errorDisplay.style.display = 'none';
         displayft = true;
         displayFooter(footer, displayft)
     }
@@ -41,16 +42,14 @@ async function fetchData(city){
 
 function displayError(error){
     errorDisplay.textContent = error;
+    errorDisplay.style.display = 'flex';
+    errorDisplay.style.textAlign = 'center'
     errorDisplay.style.fontFamily = 'MV Boli';
-    errorDisplay.style.fontSize = '20px'
+    errorDisplay.style.fontSize = '1.25rem'
     errorDisplay.style.color = 'red';
-    errorDisplay.style.display = 'flex;'
-    body.appendChild(errorDisplay);
-    
-
 }
 
- async function displayData(data, displayft){
+ async function displayData(data){
     const {name : city,
         main: {temp, humidity, feels_like},
         weather : [{description, id, icon}],
