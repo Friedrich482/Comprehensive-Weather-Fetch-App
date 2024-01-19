@@ -1,2 +1,2 @@
-docs/* linguist-documentation=false
-docs/* linguist-vendored
+app/* linguist-documentation=false
+app/* linguist-vendored
