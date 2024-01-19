@@ -249,37 +249,21 @@ function displayEmoji(icon, descriptionDisplay){
     let body = document.body;
     let sunOrMoon = document.querySelector('#sunOrMoon')
     if(string.indexOf("n") != -1){
-        body.style.background = "url(./img/03.png)"
-
+        body.classList.remove('dayBodyClass');
+        body.classList.add('nightBodyClass');
+        
+        descriptionDisplay.style.color = 'whitesmoke';
         marker.src = './icons/cardIcons/markerNight.png';
         marker.style.height = '20px';
-
-        body.style.backgroundSize = 'cover';
-        body.style.backgroundRepeat = 'no-repeat'
-        body.style.backgroundAttachment = 'fixed'
-        body.style.backgroundPosition = 'center'
-        body.style.color = 'whitesmoke';
-        descriptionDisplay.style.color = 'whitesmoke';
-
         sunOrMoon.src  = './icons/titleIcons/clear-night.svg';
         submitButton.classList.add('submitNight');
     }
     else{
-        body.style.background = "url(./img/01.png)";
-
-        marker.src = './icons/cardIcons/marker.png';
-        marker.style.height = '20px';
-
-        body.style.backgroundSize = 'cover';
-        body.style.backgroundRepeat = 'no-repeat'
-        body.style.backgroundAttachment = 'fixed'
-        body.style.backgroundPosition = 'center'
-        body.style.color = 'black';
-        descriptionDisplay.style.color = 'black'
+        body.classList.remove('nightBodyClass');
+        body.classList.add('dayBodyClass');
 
         sunOrMoon.src  = './icons/titleIcons/clear-day.svg'
         submitButton.classList.remove('submitNight');
-
     }
 }
 
@@ -287,5 +271,4 @@ function displayFooter(footer, displayft){
     if(displayft){
         footer.style.display = 'flex';
     }
-    
 }

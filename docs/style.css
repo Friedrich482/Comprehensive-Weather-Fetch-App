@@ -1,4 +1,4 @@
-body{
+.dayBodyClass{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -9,11 +9,31 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
-    background-position: center;
+    background-position:center;
+    color:black;
     min-height: 1rem;
     gap: 0rem;
     margin: 0;
 }
+
+.nightBodyClass{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    font-family: 'MV Boli';
+    flex-wrap: wrap;
+    background:url('img/03.png');
+    background-size: cover;
+    background-repeat :'no-repeat';
+    /* background-attachment: fixed; */
+    background-position: center;
+    color: whitesmoke;
+    min-height: 1rem;
+    gap: 0rem;
+    margin: 0;
+}
+
 #spanTittle{
     text-align: center;
 }
