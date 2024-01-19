@@ -144,6 +144,7 @@ input[type='submit']:active{
     width: 20px;
     position: relative;
     top: 0.2rem;
+    border-radius: 0.2rem;
 }
 
 #WindDisplay{
@@ -156,10 +157,6 @@ input[type='submit']:active{
     bottom: 0.5rem;
 }
 
-footer{
-    text-align: center;
-    flex: 1;
-}
 #gitLink{
     color: khaki;
     text-decoration: none;
@@ -168,4 +165,27 @@ footer{
     text-decoration: underline;
     color: hsl(330, 84%, 46%);
     box-shadow: 0 0.5rem 8px black;
+}
+footer{
+    text-align: center;
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+footer p{
+    display: inline-block;
+    position: relative;
+    right: 100%;
+    animation: scrolling 20s linear infinite;
+}
+
+@keyframes scrolling {
+    from{
+        right: 100%;
+    }
+    to{
+        right: -100%
+    }
 }
