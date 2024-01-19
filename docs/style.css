@@ -8,6 +8,36 @@
     url("https://db.onlinewebfonts.com/t/a7e3822358f6dcb2f986a68cf24721b2.svg#MV Boli V1")format("svg");
 }
 
+body.dayBodyClass.dialogOpen {
+    filter: blur(7px);
+}
+
+body.dayBodyClass.dialogOpen #apiKeyDialog {
+    filter: blur(0);
+}
+
+#apiKeyDialog{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-width: 15rem;
+    border-radius: 20px;
+    background-color: hsla(0, 2%, 30%, 0.993);
+}
+
+#apiKeyField{
+    font-size: 1.18rem;
+    border-radius: 20px;
+    border: 3px solid rgb(91, 18, 159);
+    text-align: center;
+    padding: 3px;
+    font-family: 'MV Boli V1';
+    max-width: 12rem;
+    max-height: 4rem;
+
+}
+
 .dayBodyClass{
     display: flex;
     align-items: center;
@@ -36,7 +66,6 @@
     background:url('img/03.png');
     background-size: cover;
     background-repeat :'no-repeat';
-    /* background-attachment: fixed; */
     background-position: center;
     color: whitesmoke;
     min-height: 1rem;
@@ -164,7 +193,6 @@ input[type="text"]{
     height: 30px;
     width: 30px;
     position: relative;
-
 }
 
 #windIcon, #speedIcon{

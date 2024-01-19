@@ -5,6 +5,22 @@ let apiKey = "2232101b7a4c133da51de8620fc86462"
 let footer = document.querySelector('footer');
 let submitButton = document.querySelector('.submitButton');
 let displayft = false;
+
+let dialog = document.querySelector('dialog');
+let submitApiBtn = document.querySelector('#submitApiBtn');
+let apiKeyForm = document.querySelector('#apiKeyForm');
+document.addEventListener('DOMContentLoaded', () =>{
+    document.body.classList.add('dialogOpen')
+    dialog.showModal();
+})
+
+apiKeyForm.addEventListener('submit', (event) =>{
+    event.preventDefault();
+    dialog.close();
+    dialog.style.display = 'none'
+    document.body.classList.remove('dialogOpen');
+})
+
 weatherForm.addEventListener('submit', async (event) =>{
     card.textContent = ''
     event.preventDefault()
