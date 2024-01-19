@@ -129,11 +129,11 @@ input[type="text"]{
     color: whitesmoke;
 }
 
-.submitButtons:hover{
+.submitButtons:hover, .submitNight:hover{
     scale: 1.1;
 }
 
-.submitButtons:active{
+.submitButtons:active, .submitNight:active{
     background-color: hsl(0, 5%, 4%);
 }
 

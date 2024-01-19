@@ -1,29 +1,31 @@
 let weatherForm = document.getElementById('weatherForm')
 let card = document.getElementById('card')
 let errorDisplay = document.querySelector('#errorDisplay')
-let apiKey = "2232101b7a4c133da51de8620fc86462"
+let apiKey = null;
 let footer = document.querySelector('footer');
 let submitButton = document.querySelector('.submitButton');
 let displayft = false;
-
 let dialog = document.querySelector('dialog');
 let submitApiBtn = document.querySelector('#submitApiBtn');
 let apiKeyForm = document.querySelector('#apiKeyForm');
 let apiKeyField = document.querySelector('#apiKeyField')
+
 document.addEventListener('DOMContentLoaded', () =>{
     document.body.classList.add('dialogOpen')
     dialog.showModal();
-    dialog.focus();
+    apiKeyField.focus();
 })
 
 apiKeyForm.addEventListener('submit', (event) =>{
     event.preventDefault();
+    apiKey = apiKeyField.value;
     dialog.close();
     dialog.style.display = 'none'
     document.body.classList.remove('dialogOpen');
 })
 
 weatherForm.addEventListener('submit', async (event) =>{
+    console.log(apiKey)
     card.textContent = ''
     event.preventDefault()
     let cityEntered = document.getElementById('cityEntered').value;
@@ -50,7 +52,11 @@ weatherForm.addEventListener('submit', async (event) =>{
 async function fetchData(city){
     let ApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
     let response = await fetch(ApiUrl);
-    
+    // console.log(response);
+    if(response.statusText == "Unauthorized"){
+        throw new  Error("Couldn't fetch data ❌, your API key 🔑 may be invalid !");
+    }
+
     if(!response.ok){
         throw new Error("Couldn't fetch data ❌, try again !")
     }
@@ -284,7 +290,7 @@ function displayEmoji(icon, descriptionDisplay){
         body.classList.add('dayBodyClass');
 
         sunOrMoon.src  = './icons/titleIcons/clear-day.svg'
-        
+
         submitButtons.forEach((submitButton) =>{
             submitButton.classList.remove('submitNight');
     })
