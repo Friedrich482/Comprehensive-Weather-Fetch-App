@@ -1,9 +1,19 @@
+@font-face {
+    font-family: "MV Boli V1";
+    src: url("https://db.onlinewebfonts.com/t/a7e3822358f6dcb2f986a68cf24721b2.eot");
+    src: url("https://db.onlinewebfonts.com/t/a7e3822358f6dcb2f986a68cf24721b2.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/a7e3822358f6dcb2f986a68cf24721b2.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/a7e3822358f6dcb2f986a68cf24721b2.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/a7e3822358f6dcb2f986a68cf24721b2.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/a7e3822358f6dcb2f986a68cf24721b2.svg#MV Boli V1")format("svg");
+}
+
 .dayBodyClass{
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
-    font-family: 'MV Boli';
+    font-family: 'MV Boli V1';
     flex-wrap: wrap;
     background:url('img/01.png');
     background-repeat: no-repeat;
@@ -21,7 +31,7 @@
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
-    font-family: 'MV Boli';
+    font-family: 'MV Boli V1';
     flex-wrap: wrap;
     background:url('img/03.png');
     background-size: cover;
@@ -67,7 +77,7 @@ input[type="text"]{
     border: 3px solid rgb(159, 18, 81);
     text-align: center;
     padding: 3px;
-    font-family: 'MV Boli';
+    font-family: 'MV Boli V1';
     max-width: 12rem;
     max-height: 4rem;
 
@@ -78,7 +88,7 @@ input[type="text"]{
     background-color: hsla(0, 0%, 0%, 0.899);
     border-radius: 20px;
     padding: 3px;
-    font-family: 'MV Boli';
+    font-family: 'MV Boli V1';
     min-width: 6rem;
     max-height: 4rem;
     color: whitesmoke;
@@ -183,7 +193,7 @@ input[type="text"]{
 }
 
 #gitLink{
-    color: khaki;
+    color: hsl(54, 100%, 52%);
     text-decoration: none;
 }
 #gitLink:hover{
