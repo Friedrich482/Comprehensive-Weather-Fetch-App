@@ -25,8 +25,10 @@ To run it, simply clone the repository on your machine.
 ``` bash
 git clone https://github.com/Friedrich482/Comprehensive-Weather-Fetch-App.git
 
-```
+```  
 
-Then open it with your code editor, and open in your browser to see the result and use it.
+<!-- Before using, you will need an [openweathermap API key](https://https://openweathermap.org/)   -->  
+
+Then open it with your code editor, and open in your browser to see the result.
 ![Image](/docs/img/weatherAppPr.png)
 You can join using my mail address 📧 : <friedricht109@gmail.com>

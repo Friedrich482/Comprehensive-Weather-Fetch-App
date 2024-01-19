@@ -23,6 +23,7 @@ body.dayBodyClass.dialogOpen #apiKeyDialog {
     text-align: center;
     flex-direction: column;
     flex-wrap: wrap;
+    gap: 1rem;
     max-width: 19rem;
     min-height: 15rem;
     border-radius: 20px;

@@ -89,6 +89,7 @@ function displayError(error){
             apiKeyField.value = '';
             apiKeyField.focus();
             errorDisplay.textContent = '';
+            document.body.classList.add('dialogOpen')
             document.querySelector('#cityEntered').value = '';
         })
         errorDisplay.appendChild(retryButton);
