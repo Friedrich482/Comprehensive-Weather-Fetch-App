@@ -191,11 +191,11 @@ footer p{
 }
 
 #footerImg{
-    height: 1.5rem;
-    width: 1.5rem;
+    height: 1.4rem;
+    width: 1.4rem;
     color: teal;
     position: relative;
-    top: 0.4rem;
+    top: 0.1rem;
     border: none;
     border-radius: 10px;
 }
