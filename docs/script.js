@@ -9,9 +9,11 @@ let displayft = false;
 let dialog = document.querySelector('dialog');
 let submitApiBtn = document.querySelector('#submitApiBtn');
 let apiKeyForm = document.querySelector('#apiKeyForm');
+let apiKeyField = document.querySelector('#apiKeyField')
 document.addEventListener('DOMContentLoaded', () =>{
     document.body.classList.add('dialogOpen')
     dialog.showModal();
+    dialog.focus();
 })
 
 apiKeyForm.addEventListener('submit', (event) =>{
@@ -264,6 +266,7 @@ function displayEmoji(icon, descriptionDisplay){
     let string = String(icon);
     let body = document.body;
     let sunOrMoon = document.querySelector('#sunOrMoon')
+    let submitButtons = document.querySelectorAll(".submitButtons")
     if(string.indexOf("n") != -1){
         body.classList.remove('dayBodyClass');
         body.classList.add('nightBodyClass');
@@ -272,14 +275,19 @@ function displayEmoji(icon, descriptionDisplay){
         marker.src = './icons/cardIcons/markerNight.png';
         marker.style.height = '20px';
         sunOrMoon.src  = './icons/titleIcons/clear-night.svg';
-        submitButton.classList.add('submitNight');
+        submitButtons.forEach((submitButton) =>{
+            submitButton.classList.add('submitNight');
+        })
     }
     else{
         body.classList.remove('nightBodyClass');
         body.classList.add('dayBodyClass');
 
         sunOrMoon.src  = './icons/titleIcons/clear-day.svg'
-        submitButton.classList.remove('submitNight');
+        
+        submitButtons.forEach((submitButton) =>{
+            submitButton.classList.remove('submitNight');
+    })
     }
 }
 

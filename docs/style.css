@@ -21,21 +21,27 @@ body.dayBodyClass.dialogOpen #apiKeyDialog {
     align-items: center;
     justify-content: center;
     text-align: center;
-    max-width: 15rem;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-width: 21rem;
+    min-height: 15rem;
     border-radius: 20px;
-    background-color: hsla(0, 2%, 30%, 0.993);
+    background-color: hsla(0, 0%, 4%, 0.635);
+    border:3px solid hsl(0, 65%, 37%);
+    color: whitesmoke
 }
 
 #apiKeyField{
     font-size: 1.18rem;
     border-radius: 20px;
-    border: 3px solid rgb(91, 18, 159);
+    border: 3px solid hsl(0, 65%, 37%);
     text-align: center;
     padding: 3px;
     font-family: 'MV Boli V1';
-    max-width: 12rem;
+    min-width: 20rem;
     max-height: 4rem;
-
+    background-color: transparent;
+    color: whitesmoke;
 }
 
 .dayBodyClass{
@@ -111,7 +117,7 @@ input[type="text"]{
     max-height: 4rem;
 
 }
-.submitButton{
+.submitButtons{
     border: 3px solid transparent;
     font-size: 1.18rem;
     background-color: hsla(0, 0%, 0%, 0.899);
@@ -123,11 +129,11 @@ input[type="text"]{
     color: whitesmoke;
 }
 
-.submitButton:hover{
+.submitButtons:hover{
     scale: 1.1;
 }
 
-.submitButton:active{
+.submitButtons:active{
     background-color: hsl(0, 5%, 4%);
 }
 
