@@ -52,7 +52,7 @@ input[type="text"]{
     max-height: 4rem;
 
 }
-input[type='submit']{
+.submitButton{
     border: 3px solid transparent;
     font-size: 1.18rem;
     background-color: hsla(0, 0%, 0%, 0.899);
@@ -64,13 +64,19 @@ input[type='submit']{
     color: whitesmoke;
 }
 
-input[type='submit']:hover{
+.submitButton:hover{
     scale: 1.1;
 }
 
-input[type='submit']:active{
+.submitButton:active{
     background-color: hsl(0, 5%, 4%);
 }
+
+.submitNight{
+    border: 3px solid hsl(0, 64%, 96%);
+    color: rgb(248, 3, 44)
+}
+
 #card{
     margin-top: 2rem;
     display: flex;
@@ -79,9 +85,7 @@ input[type='submit']:active{
     flex-direction: column;
     text-align: center;
 }
-/* p{
-    max-height: 2rem
-} */
+
 
 #descriptionDisplay{
     color: hsl(348, 5%, 19%);
@@ -92,6 +96,7 @@ input[type='submit']:active{
     grid-template-columns: repeat(5, 1fr);
     text-align: center;
 }
+
 #weatherIcon{
     position:relative;
     top: -1rem;
@@ -199,3 +204,4 @@ footer p{
     border: none;
     border-radius: 10px;
 }
+

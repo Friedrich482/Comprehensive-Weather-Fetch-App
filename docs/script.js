@@ -3,6 +3,7 @@ let card = document.getElementById('card')
 let errorDisplay = document.querySelector('#errorDisplay')
 let apiKey = "2232101b7a4c133da51de8620fc86462"
 let footer = document.querySelector('footer');
+let submitButton = document.querySelector('.submitButton');
 let displayft = false;
 weatherForm.addEventListener('submit', async (event) =>{
     card.textContent = ''
@@ -260,7 +261,8 @@ function displayEmoji(icon, descriptionDisplay){
         body.style.color = 'whitesmoke';
         descriptionDisplay.style.color = 'whitesmoke';
 
-        sunOrMoon.src  = './icons/titleIcons/clear-night.svg'
+        sunOrMoon.src  = './icons/titleIcons/clear-night.svg';
+        submitButton.classList.add('submitNight');
     }
     else{
         body.style.background = "url(./img/01.png)";
@@ -276,6 +278,8 @@ function displayEmoji(icon, descriptionDisplay){
         descriptionDisplay.style.color = 'black'
 
         sunOrMoon.src  = './icons/titleIcons/clear-day.svg'
+        submitButton.classList.remove('submitNight');
+
     }
 }
 
