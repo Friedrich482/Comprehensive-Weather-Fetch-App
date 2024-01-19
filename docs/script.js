@@ -5,6 +5,7 @@ let apiKey = null;
 let footer = document.querySelector('footer');
 let submitButton = document.querySelector('.submitButton');
 let displayft = false;
+
 let dialog = document.querySelector('dialog');
 let submitApiBtn = document.querySelector('#submitApiBtn');
 let apiKeyForm = document.querySelector('#apiKeyForm');
@@ -25,7 +26,6 @@ apiKeyForm.addEventListener('submit', (event) =>{
 })
 
 weatherForm.addEventListener('submit', async (event) =>{
-    console.log(apiKey)
     card.textContent = ''
     event.preventDefault()
     let cityEntered = document.getElementById('cityEntered').value;
@@ -68,10 +68,32 @@ async function fetchData(city){
 function displayError(error){
     errorDisplay.textContent = error;
     errorDisplay.style.display = 'flex';
-    errorDisplay.style.textAlign = 'center'
+    errorDisplay.style.flexWrap = 'wrap';
+    errorDisplay.style.flexDirection = 'column';
+    errorDisplay.style.alignItems = 'center';
+    errorDisplay.style.gap = '1rem'
+    errorDisplay.style.justifyContent = 'center';
+    errorDisplay.style.textAlign = 'center';
     errorDisplay.style.fontFamily = 'MV Boli';
     errorDisplay.style.fontSize = '1.25rem'
     errorDisplay.style.color = 'red';
+
+    if(error == "Error: Couldn't fetch data ❌, your API key 🔑 may be invalid !"){
+        let retryButton = document.createElement('input');
+        retryButton.type = 'submit';
+        retryButton.value = 'Retry !'
+        retryButton.classList.add('submitButtons');
+        retryButton.addEventListener('click', () =>{
+            dialog.style.display  = 'flex';
+            dialog.showModal();
+            apiKeyField.value = '';
+            apiKeyField.focus();
+            errorDisplay.textContent = '';
+            document.querySelector('#cityEntered').value = '';
+        })
+        errorDisplay.appendChild(retryButton);
+        
+    }
 }
 
  async function displayData(data){
