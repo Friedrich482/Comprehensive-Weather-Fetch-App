@@ -29,7 +29,7 @@ git clone https://github.com/Friedrich482/Comprehensive-Weather-Fetch-App.git
 
 Before using, you will need an [openweathermap API key](https://https://openweathermap.org/)  
 
-## How to get an API from [openweathermap API key](https://https://openweathermap.org/)  
+## How to get an API from [openweathermap.org](https://https://openweathermap.org/)  
 
 Go there and register (it is free) to get an API key, you may need to wait about 15 mins to get it. Once it is done, come back in the app and enter it.  
 
