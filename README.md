@@ -28,5 +28,5 @@ git clone https://github.com/Friedrich482/Comprehensive-Weather-Fetch-App.git
 ```
 
 Then open it with your code editor, and open in your browser to see the result and use it.
-![Image](/src/img/weatherAppPr.png)
+![Image](/docs/img/weatherAppPr.png)
 You can join using my mail address 📧 : <friedricht109@gmail.com>
