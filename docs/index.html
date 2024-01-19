@@ -9,6 +9,7 @@
     <script src="script.js" defer></script>
 </head>
 <body>
+    <dialog>Enter your api key</dialog>
     <h1><span id="spanTittle">Weather App</span>
         <img src="icons/titleIcons/snow.svg" class="titleIcons">
         <img src="icons/titleIcons/tornado.svg" class="titleIcons">
@@ -18,7 +19,7 @@
         <input type="text" placeholder="Enter a city..." id="cityEntered" required>
         <input type="submit" value="Submit">
     </form>
-
+    
     <div id="card" style="display:none">
       
         
@@ -28,7 +29,7 @@
     </p>
 
     <footer style="display:none;">
-        <p>&copy<label id="yearLabel"></label>, <a href="https://github.com/Friedrich482" id="gitLink">@Friedrich482</a> 🚀,<b><span style = "color: hsl(16, 96%, 45%);"> All</span> Rights Reserved</b></p>
+        <p>&copy<label id="yearLabel"></label>, <a href="https://github.com/Friedrich482" id="gitLink">@Friedrich482</a> <img src="./icons/cardIcons/rocketNew.gif" id="footerImg" alt ="🚀">,<b><span style = "color: hsl(16, 96%, 45%);"> All</span> Rights Reserved</b></p>
         <script>
             let date = new Date();
             let year = date.getFullYear();

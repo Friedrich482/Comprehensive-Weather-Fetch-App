@@ -189,3 +189,13 @@ footer p{
         right: -100%
     }
 }
+
+#footerImg{
+    height: 1.5rem;
+    width: 1.5rem;
+    color: teal;
+    position: relative;
+    top: 0.4rem;
+    border: none;
+    border-radius: 10px;
+}
