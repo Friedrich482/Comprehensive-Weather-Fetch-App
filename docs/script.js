@@ -60,7 +60,6 @@ async function fetchData(city){
     if(response.statusText == "Unauthorized"){
         throw new  Error("Couldn't fetch data ❌, your API key 🔑 may be invalid !");
     }
-
     if(!response.ok){
         throw new Error("Couldn't fetch data ❌, try again !")
     }
@@ -70,6 +69,7 @@ async function fetchData(city){
 }
 
 function displayError(error){
+    
     errorDisplay.textContent = error;
     errorDisplay.style.display = 'flex';
     errorDisplay.style.flexWrap = 'wrap';
@@ -81,7 +81,11 @@ function displayError(error){
     errorDisplay.style.fontFamily = 'MV Boli';
     errorDisplay.style.fontSize = '1.25rem'
     errorDisplay.style.color = 'red';
-
+    if(error == "TypeError: Failed to fetch"){
+        errorDisplay.textContent = "It seems that you're not connected to internet 🌐. Please check you connexion";
+        return;
+    }
+    
     if(error == "Error: Couldn't fetch data ❌, your API key 🔑 may be invalid !"){
         let retryButton = document.createElement('input');
         retryButton.type = 'submit';
@@ -99,6 +103,8 @@ function displayError(error){
         errorDisplay.appendChild(retryButton);
         
     }
+    
+    
 }
 
  async function displayData(data){
