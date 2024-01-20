@@ -17,6 +17,7 @@ body.dayBodyClass.dialogOpen #apiKeyDialog {
 }
 
 #apiKeyDialog{
+    font-family: 'MV Boli V1';
     display: flex;
     align-items: center;
     justify-content: center;
