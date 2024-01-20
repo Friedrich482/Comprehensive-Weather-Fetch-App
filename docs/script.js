@@ -17,6 +17,10 @@ document.addEventListener('DOMContentLoaded', () =>{
     apiKeyField.focus();
 })
 
+dialog.addEventListener('cancel', (event) =>{
+    event.preventDefault();
+})
+
 apiKeyForm.addEventListener('submit', (event) =>{
     event.preventDefault();
     apiKey = apiKeyField.value;

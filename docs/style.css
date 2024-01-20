@@ -29,7 +29,8 @@ body.dayBodyClass.dialogOpen #apiKeyDialog {
     border-radius: 20px;
     background-color: hsla(0, 0%, 4%, 0.635);
     border:3px solid hsl(0, 65%, 37%);
-    color: whitesmoke
+    color: whitesmoke;
+    user-select: none;
 }
 
 #apiKeyField{
@@ -138,6 +139,7 @@ input[type="text"]{
     min-width: 6rem;
     max-height: 4rem;
     color: whitesmoke;
+    cursor: pointer;
 }
 
 .submitButtons:hover, .submitNight:hover{
