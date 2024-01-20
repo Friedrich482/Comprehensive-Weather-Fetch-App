@@ -44,7 +44,17 @@ body.dayBodyClass.dialogOpen #apiKeyDialog {
     background-color: transparent;
     color: whitesmoke;
 }
-
+.helpSpan{
+    color:rgba(14, 220, 252, 0.829);
+    text-decoration: none;
+    font-size: 0.904rem
+}
+.helpSpan :hover{
+    color: hsla(128, 91%, 47%, 0.829);
+}
+.helpSpan :active{
+    box-shadow: 1px 1px 10px black;
+}
 .dayBodyClass{
     display: flex;
     align-items: center;
