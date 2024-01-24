@@ -25,14 +25,14 @@ dialog.addEventListener('cancel', (event) =>{
 eye.addEventListener('click', () =>{
     if(apiKeyField.type == "password"){
         apiKeyField.type = "text";
-        eye.src = "/docs/icons/passwordIcons/crossedEye.svg";
+        eye.src = "icons/passwordIcons/crossedEye.svg";
         eye.title = "Hide the API key";
         apiKeyField.classList.add('apiKeyFieldText');
         apiKeyField.classList.remove('apiKeyField');
     }
     else{
         apiKeyField.type = "password"
-        eye.src = "/docs/icons/passwordIcons/eye.svg";
+        eye.src = "icons/passwordIcons/eye.svg";
         eye.title = "Show the API key";
         apiKeyField.classList.add('apiKeyField');
         apiKeyField.classList.remove('apiKeyFieldText');
