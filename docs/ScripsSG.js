@@ -8,6 +8,9 @@ const eye = document.querySelector('.eye');
 let apiKey = null;
 let displayft = false;
 
+card.textContent = '';
+const footer = document.querySelector('footer');
+
 const dialog = document.querySelector('dialog');
 
 // Use arrow functions for event listeners
