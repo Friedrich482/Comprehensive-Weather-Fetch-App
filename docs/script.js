@@ -1,75 +1,81 @@
-let weatherForm = document.getElementById('weatherForm')
-let card = document.getElementById('card')
-let errorDisplay = document.querySelector('#errorDisplay')
+// Use const and let for variable declarations
+const weatherForm = document.getElementById('weatherForm');
+const card = document.getElementById('card');
+const errorDisplay = document.querySelector('#errorDisplay');
+const apiKeyField = document.querySelector('.apiKeyField');
+const eye = document.querySelector('.eye');
+
 let apiKey = null;
-let footer = document.querySelector('footer');
-let submitButton = document.querySelector('.submitButton');
 let displayft = false;
 
-let dialog = document.querySelector('dialog');
-let submitApiBtn = document.querySelector('#submitApiBtn');
-let apiKeyForm = document.querySelector('#apiKeyForm');
-let apiKeyField = document.querySelector('.apiKeyField')
-let eye = document.querySelector('.eye');
+card.textContent = '';
+const footer = document.querySelector('footer');
 
-document.addEventListener('DOMContentLoaded', () =>{
-    document.body.classList.add('dialogOpen')
+const dialog = document.querySelector('dialog');
+
+// Use arrow functions for event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('dialogOpen');
     dialog.showModal();
     apiKeyField.focus();
-})
+});
 
-dialog.addEventListener('cancel', (event) =>{
+dialog.addEventListener('cancel', (event) => {
     event.preventDefault();
-})
+});
 
-eye.addEventListener('click', () =>{
-    if(apiKeyField.type == "password"){
-        apiKeyField.type = "text";
-        eye.src = "icons/passwordIcons/crossedEye.svg";
-        eye.title = "Hide the API key";
-        apiKeyField.classList.add('apiKeyFieldText');
-        apiKeyField.classList.remove('apiKeyField');
-    }
-    else{
-        apiKeyField.type = "password"
-        eye.src = "icons/passwordIcons/eye.svg";
-        eye.title = "Show the API key";
-        apiKeyField.classList.add('apiKeyField');
-        apiKeyField.classList.remove('apiKeyFieldText');
-    }
-})
+eye.addEventListener('click', () => {
+    toggleApiKeyVisibility();
+});
 
-apiKeyForm.addEventListener('submit', (event) =>{
+apiKeyForm.addEventListener('submit', (event) => {
     event.preventDefault();
     apiKey = apiKeyField.value;
-    dialog.close();
-    dialog.style.display = 'none'
-    document.body.classList.remove('dialogOpen');
-})
+    closeDialog();
+});
 
-weatherForm.addEventListener('submit', async (event) =>{
+weatherForm.addEventListener('submit', async (event) => {
     card.textContent = ''
-    event.preventDefault()
-    let cityEntered = document.getElementById('cityEntered').value;
-    if(cityEntered == ''){
-        displayError('Please enter a city  🏙️ !');
-        return ;
-    }
+    event.preventDefault();
+    const cityEntered = document.getElementById('cityEntered').value;
     
-    try{
-        let response = await fetchData(cityEntered);
-        console.log(response);
+    if (cityEntered === '') {
+        displayError('Please enter a city 🏙️ !');
+        return;
+    }
+
+    try {
+        const response = await fetchData(cityEntered);
         card.style.display = 'flex';
         displayData(response);
         errorDisplay.style.display = 'none';
         displayft = true;
-        displayFooter(footer, displayft)
+        displayFooter(footer, displayft);
+    } catch (error) {
+        displayError(error);
     }
+});
 
-    catch(error){
-        displayError(error)
-    } 
-})
+// Extracted toggleApiKeyVisibility function
+function toggleApiKeyVisibility() {
+    apiKeyField.type = apiKeyField.type === 'password' ? 'text' : 'password';
+    const eyeSrc = apiKeyField.type === 'password' ? 'icons/passwordIcons/eye.svg' : 'icons/passwordIcons/crossedEye.svg';
+    const eyeTitle = apiKeyField.type === 'password' ? 'Show the API key' : 'Hide the API key';
+    
+    eye.src = eyeSrc;
+    eye.title = eyeTitle;
+    apiKeyField.classList.toggle('apiKeyFieldText');
+    apiKeyField.classList.toggle('apiKeyField');
+}
+
+// Extracted closeDialog function
+function closeDialog() {
+    dialog.close();
+    dialog.style.display = 'none';
+    document.body.classList.remove('dialogOpen');
+}
+
+// Rest of the code remains unchanged
 
 async function fetchData(city){
     let ApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
@@ -99,6 +105,7 @@ function displayError(error){
     errorDisplay.style.fontFamily = 'MV Boli';
     errorDisplay.style.fontSize = '1.25rem'
     errorDisplay.style.color = 'red';
+    
     if(error == "TypeError: Failed to fetch"){
         errorDisplay.textContent = "It seems that you're not connected to internet 🌐. Please check you connexion";
         return;
