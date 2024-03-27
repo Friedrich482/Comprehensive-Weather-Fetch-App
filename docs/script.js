@@ -1,8 +1,19 @@
-async function fetchApiKey() {
-    let request = await fetch("apiKey.json");
-    let response = await request.json();
-    const API_KEY = response["API_KEY"];
-    return API_KEY;
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+function fetchApiKey() {
+    return __awaiter(this, void 0, void 0, function* () {
+        let request = yield fetch("apiKey.json");
+        let response = yield request.json();
+        const API_KEY = response["API_KEY"];
+        return API_KEY;
+    });
 }
 const API_KEY = await fetchApiKey();
 // ! Here the goal is to reference all the dom Elements without using abusively the document.querySelector() method
@@ -72,7 +83,7 @@ function hiddenElement(element) {
     element.classList.add("hidden");
 }
 //! The main form submission event 🚀
-weatherForm.addEventListener("submit", async (event) => {
+weatherForm.addEventListener("submit", (event) => __awaiter(void 0, void 0, void 0, function* () {
     clearInterval(interval);
     locationDateDisplay.classList.add("invisible");
     let cityEntered = document.querySelector("#cityEntered")
@@ -84,7 +95,7 @@ weatherForm.addEventListener("submit", async (event) => {
     }
     try {
         hiddenElement(errorDisplay);
-        const response = await fetchData(cityEntered);
+        const response = yield fetchData(cityEntered);
         displayElement(card);
         displayData(response);
         // footer.classList.remove("hidden");
@@ -92,16 +103,18 @@ weatherForm.addEventListener("submit", async (event) => {
     catch (error) {
         displayError(error);
     }
-});
-async function fetchData(city) {
-    let ApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`;
-    let response = await fetch(ApiUrl);
-    if (!response.ok) {
-        throw new Error("Couldn't fetch data ❌, try again !");
-    }
-    else {
-        return await response.json();
-    }
+}));
+function fetchData(city) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let ApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`;
+        let response = yield fetch(ApiUrl);
+        if (!response.ok) {
+            throw new Error("Couldn't fetch data ❌, try again !");
+        }
+        else {
+            return yield response.json();
+        }
+    });
 }
 function displayError(error) {
     hiddenElement(card);
@@ -114,39 +127,40 @@ function displayError(error) {
     }
     errorDisplay.textContent = String(error);
 }
-async function displayData(data) {
-    const { name: city, main: { temp, humidity, feels_like }, weather: [{ description, icon }], sys: { country }, timezone: timezone, wind: { deg, speed }, } = data;
-    cityText.innerHTML = `&nbsp;${city}`;
-    let temperature = (temp - 273.15).toFixed();
-    // Avoid display like {-0°C}
-    temperature === "-0" ? (temperature = "0") : true;
-    temperatureText.textContent = `Temperature : ${temperature}°C`;
-    let feels_like_fixed = (feels_like - 273.15).toFixed();
-    // Same thing here
-    feels_like_fixed === "-0" ? (feels_like_fixed = "0") : true;
-    temperatureFlText.textContent = ` Feels like : ${feels_like_fixed}°C`;
-    humidityText.textContent = ` Humidity : ${humidity} %`;
-    windDeg.textContent = `Wind Direction : ${deg} degrees`;
-    windSpeed.textContent = `Wind Speed : ${speed} meters/s`;
-    description.length > 17
-        ? descriptionText.classList.remove("indent-12")
-        : descriptionText.classList.add("indent-12");
-    descriptionText.textContent = description;
-    let countryCode = country;
-    //? Fetch the country from ISO3166-1.alpha2.json
-    let actualCountry = await fetchCountry(countryCode);
-    cityText.innerHTML += `,&nbsp;${actualCountry}`;
-    function setDate() {
-        locationDateDisplay.innerHTML = "";
-        let locationDate = getLocationDate(timezone);
-        let day = locationDate.getDate();
-        let year = locationDate.getFullYear();
-        let month = stringMonths(locationDate.getMonth());
-        let weekDay = stringWeekDay(locationDate.getDay());
-        let locationHour = pad(locationDate.getHours());
-        let locationMins = pad(locationDate.getMinutes());
-        let locationsecs = pad(locationDate.getSeconds());
-        locationDateDisplay.innerHTML = `<span>${weekDay}</span>
+function displayData(data) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { name: city, main: { temp, humidity, feels_like }, weather: [{ description, icon }], sys: { country }, timezone: timezone, wind: { deg, speed }, } = data;
+        cityText.innerHTML = `&nbsp;${city}`;
+        let temperature = (temp - 273.15).toFixed();
+        // Avoid display like {-0°C}
+        temperature === "-0" ? (temperature = "0") : true;
+        temperatureText.textContent = `Temperature : ${temperature}°C`;
+        let feels_like_fixed = (feels_like - 273.15).toFixed();
+        // Same thing here
+        feels_like_fixed === "-0" ? (feels_like_fixed = "0") : true;
+        temperatureFlText.textContent = ` Feels like : ${feels_like_fixed}°C`;
+        humidityText.textContent = ` Humidity : ${humidity} %`;
+        windDeg.textContent = `Wind Direction : ${deg} degrees`;
+        windSpeed.textContent = `Wind Speed : ${speed} meters/s`;
+        description.length > 17
+            ? descriptionText.classList.remove("indent-12")
+            : descriptionText.classList.add("indent-12");
+        descriptionText.textContent = description;
+        let countryCode = country;
+        //? Fetch the country from ISO3166-1.alpha2.json
+        let actualCountry = yield fetchCountry(countryCode);
+        cityText.innerHTML += `,&nbsp;${actualCountry}`;
+        function setDate() {
+            locationDateDisplay.innerHTML = "";
+            let locationDate = getLocationDate(timezone);
+            let day = locationDate.getDate();
+            let year = locationDate.getFullYear();
+            let month = stringMonths(locationDate.getMonth());
+            let weekDay = stringWeekDay(locationDate.getDay());
+            let locationHour = pad(locationDate.getHours());
+            let locationMins = pad(locationDate.getMinutes());
+            let locationsecs = pad(locationDate.getSeconds());
+            locationDateDisplay.innerHTML = `<span>${weekDay}</span>
     <span>${day}</span>
     <span>${month}</span>
     <span>${year},</span>
@@ -155,17 +169,20 @@ async function displayData(data) {
       <span class="size-6 text-center">${locationMins}</span>:
       <span class="size-6 text-center">${locationsecs}</span
     </div>`;
-        locationDateDisplay.classList.remove("invisible");
-        locationDateDisplay.prepend(timeIcon);
-    }
-    interval = setInterval(setDate, 1000);
-    displayEmoji(icon, descriptionDisplay);
+            locationDateDisplay.classList.remove("invisible");
+            locationDateDisplay.prepend(timeIcon);
+        }
+        interval = setInterval(setDate, 1000);
+        displayEmoji(icon, descriptionDisplay);
+    });
 }
-async function fetchCountry(countryCode) {
-    let countriesCodeResponse = await fetch("ISO3166-1.alpha2.json");
-    let countriesCode = await countriesCodeResponse.json();
-    const countryName = countriesCode[countryCode];
-    return countryName;
+function fetchCountry(countryCode) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let countriesCodeResponse = yield fetch("ISO3166-1.alpha2.json");
+        let countriesCode = yield countriesCodeResponse.json();
+        const countryName = countriesCode[countryCode];
+        return countryName;
+    });
 }
 function getLocationDate(timezone) {
     let locationDate;
