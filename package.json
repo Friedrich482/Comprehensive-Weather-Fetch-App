@@ -1,0 +1,16 @@
+{
+  "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.4.3"
+  },
+  "scripts": {
+    "dev": "tailwindcss -i ./docs/css/input.css -o ./docs/css/style.css --watch",
+    "tsc": "tsc --watch",
+    "sass": "sass --watch ./docs/css/input.scss ./docs/css/input.css"
+  },
+  "dependencies": {
+    "sass": "^1.72.0"
+  }
+}

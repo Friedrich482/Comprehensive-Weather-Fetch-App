@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.MV-boli {
+  font-family: "MV boli";
+}
+.weatherDayImg {
+    background-image: url("../img/01.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: black
+  }
+  
+  .weatherNightImg {
+    background-image: url("../img/02.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+  }

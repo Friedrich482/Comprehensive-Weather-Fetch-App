@@ -1,362 +1,242 @@
-// Use const and let for variable declarations
-const weatherForm = document.getElementById('weatherForm');
-const card = document.getElementById('card');
-const errorDisplay = document.querySelector('#errorDisplay');
-const apiKeyField = document.querySelector('.apiKeyField');
-const eye = document.querySelector('.eye');
-
-let apiKey = null;
-let displayft = false;
-
-card.textContent = '';
-const footer = document.querySelector('footer');
-
-const dialog = document.querySelector('dialog');
-
-// Use arrow functions for event listeners
-document.addEventListener('DOMContentLoaded', () => {
-    document.body.classList.add('dialogOpen');
-    dialog.showModal();
-    apiKeyField.focus();
-});
-
-dialog.addEventListener('cancel', (event) => {
+async function fetchApiKey() {
+    let request = await fetch("apiKey.json");
+    let response = await request.json();
+    const API_KEY = response["API_KEY"];
+    return API_KEY;
+}
+const API_KEY = await fetchApiKey();
+// ! Here the goal is to reference all the dom Elements without using abusively the document.querySelector() method
+// ?I start by creating an array for each type of nodes ...
+const DivsElements = [
+    "card",
+    "windDeg",
+    "windSpeed",
+    "descriptionDisplay",
+    "locationDateDisplay",
+];
+const paragraphElements = [
+    "errorDisplay",
+    "cityText",
+    "temperatureText",
+    "humidityText",
+    "temperatureFlText",
+    "descriptionText",
+];
+const imageElements = ["marker", "weatherIcon", "sunOrMoon"];
+// ? At this level, I create objects made by key: value pairs, one for each type of node...
+const divsObject = {};
+const paragraphsObject = {};
+const imageObject = {};
+//! This function allow me, for each value of each object, to make the value egal to the node
+function createHTMLElements(htmlElementsArray, htmlElementObject) {
+    htmlElementsArray.forEach((htmlElement) => {
+        htmlElementObject[htmlElement] = document.querySelector(`#${htmlElement}`);
+    });
+}
+createHTMLElements(DivsElements, divsObject);
+createHTMLElements(paragraphElements, paragraphsObject);
+createHTMLElements(imageElements, imageObject);
+// ? And lastly I use the object destructuring to access each node more easily (I dont want to write object.element to access the element)
+const { card, windDeg, windSpeed, descriptionDisplay, locationDateDisplay } = divsObject;
+const { errorDisplay, cityText, temperatureText, humidityText, temperatureFlText, descriptionText, } = paragraphsObject;
+const { marker, weatherIcon, sunOrMoon } = imageObject;
+// *The only form so no need to use the same technique than above...
+const weatherForm = document.getElementById("weatherForm");
+// const footer = document.querySelector("footer") as HTMLElement;
+// const imageFooter = footer.querySelector("img") as HTMLImageElement;
+// imageFooter.src = "../../assets/icons/rocket.svg";
+// footer.classList.add("hidden");
+// const apiKey: string = API_KEY;
+let interval; // For the setInterval function later in the code
+//?All Arrays for css classes
+const flexCssClasses = ["flex", "items-center", "justify-center", "flex-row"];
+const timeIconCssClasses = ["size-6", "rounded-lg", "ml-3"];
+const errorDisplayCssClasses = [
+    ...flexCssClasses,
+    "flex-wrap",
+    "flex-col",
+    "gap-1",
+    "text-center",
+    "text-red-600",
+];
+const timeIcon = document.createElement("img");
+timeIcon.src = "./icons/cardIcons/date.gif";
+timeIcon.classList.add(...timeIconCssClasses);
+// *These two functions are specially created to hidden or display elements (not toggle because it may lead to inappropriate behaviour)
+function displayElement(element) {
+    element.classList.remove("hidden");
+    element.classList.add("flex");
+}
+function hiddenElement(element) {
+    element.classList.remove("flex");
+    element.classList.add("hidden");
+}
+//! The main form submission event 🚀
+weatherForm.addEventListener("submit", async (event) => {
+    clearInterval(interval);
+    locationDateDisplay.classList.add("invisible");
+    let cityEntered = document.querySelector("#cityEntered")
+        .value;
     event.preventDefault();
-});
-
-eye.addEventListener('click', () => {
-    toggleApiKeyVisibility();
-});
-
-apiKeyForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    apiKey = apiKeyField.value;
-    closeDialog();
-});
-
-weatherForm.addEventListener('submit', async (event) => {
-    card.textContent = ''
-    event.preventDefault();
-    const cityEntered = document.getElementById('cityEntered').value;
-    
-    if (cityEntered === '') {
-        displayError('Please enter a city 🏙️ !');
+    if (cityEntered === "") {
+        displayError("Please enter a city 🏙️ !");
         return;
     }
-
     try {
+        hiddenElement(errorDisplay);
         const response = await fetchData(cityEntered);
-        card.style.display = 'flex';
+        displayElement(card);
         displayData(response);
-        errorDisplay.style.display = 'none';
-        displayft = true;
-        displayFooter(footer, displayft);
-    } catch (error) {
+        // footer.classList.remove("hidden");
+    }
+    catch (error) {
         displayError(error);
     }
 });
-
-// Extracted toggleApiKeyVisibility function
-function toggleApiKeyVisibility() {
-    apiKeyField.type = apiKeyField.type === 'password' ? 'text' : 'password';
-    const eyeSrc = apiKeyField.type === 'password' ? 'icons/passwordIcons/eye.svg' : 'icons/passwordIcons/crossedEye.svg';
-    const eyeTitle = apiKeyField.type === 'password' ? 'Show the API key' : 'Hide the API key';
-    
-    eye.src = eyeSrc;
-    eye.title = eyeTitle;
-    apiKeyField.classList.toggle('apiKeyFieldText');
-    apiKeyField.classList.toggle('apiKeyField');
-}
-
-// Extracted closeDialog function
-function closeDialog() {
-    dialog.close();
-    dialog.style.display = 'none';
-    document.body.classList.remove('dialogOpen');
-}
-
-// Rest of the code remains unchanged
-
-async function fetchData(city){
-    let ApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+async function fetchData(city) {
+    let ApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`;
     let response = await fetch(ApiUrl);
-    // console.log(response);
-    if(response.statusText == "Unauthorized"){
-        throw new  Error("Couldn't fetch data ❌, your API key 🔑 may be invalid !");
+    if (!response.ok) {
+        throw new Error("Couldn't fetch data ❌, try again !");
     }
-    if(!response.ok){
-        throw new Error("Couldn't fetch data ❌, try again !")
-    }
-    else{
-        return await response.json()
+    else {
+        return await response.json();
     }
 }
-
-function displayError(error){
-    
-    errorDisplay.textContent = error;
-    errorDisplay.style.display = 'flex';
-    errorDisplay.style.flexWrap = 'wrap';
-    errorDisplay.style.flexDirection = 'column';
-    errorDisplay.style.alignItems = 'center';
-    errorDisplay.style.gap = '1rem'
-    errorDisplay.style.justifyContent = 'center';
-    errorDisplay.style.textAlign = 'center';
-    errorDisplay.style.fontFamily = 'MV Boli';
-    errorDisplay.style.fontSize = '1.25rem'
-    errorDisplay.style.color = 'red';
-    
-    if(error == "TypeError: Failed to fetch"){
-        errorDisplay.textContent = "It seems that you're not connected to internet 🌐. Please check you connexion";
+function displayError(error) {
+    hiddenElement(card);
+    errorDisplay.classList.remove("hidden");
+    errorDisplay.classList.add(...errorDisplayCssClasses);
+    if (error == "TypeError: NetworkError when attempting to fetch resource.") {
+        errorDisplay.textContent =
+            "It seems that you're not connected to internet 🌐. Please check you connexion";
         return;
     }
-    
-    if(error == "Error: Couldn't fetch data ❌, your API key 🔑 may be invalid !"){
-        let retryButton = document.createElement('input');
-        retryButton.type = 'submit';
-        retryButton.value = 'Retry !'
-        retryButton.classList.add('submitButtons');
-        retryButton.addEventListener('click', () =>{
-            dialog.style.display  = 'flex';
-            dialog.showModal();
-            apiKeyField.value = '';
-            apiKeyField.focus();
-            errorDisplay.textContent = '';
-            document.body.classList.add('dialogOpen')
-            document.querySelector('#cityEntered').value = '';
-        })
-        errorDisplay.appendChild(retryButton);
-        
-    }
-    
-    
+    errorDisplay.textContent = String(error);
 }
-
- async function displayData(data){
-    const {name : city,
-        main: {temp, humidity, feels_like},
-        weather : [{description, id, icon}],
-        sys: {country, sunrise, sunset},
-        timezone : timezone,
-        wind : {deg, speed}
-        } = data;
-    
-    let cityDisplay = document.createElement('div');
-    let marker = document.createElement('img');
-    marker.src = './icons/cardIcons/marker.png';
-    marker.style.height = '20px';
-    marker.id = 'marker'
-  
-    cityDisplay.id = 'cityDisplay';
-    
-    cityDisplay.textContent = `\u0009 ${city}`
-    
-    card.appendChild(cityDisplay);
-    
-    // Standard temperature
-    let tempIcon = document.createElement('img');
-    tempIcon.src = './icons/cardIcons/thermometer.svg';
-    tempIcon.id = 'tempIcon'
-
-    let tempDisplay = document.createElement('p');
-    tempDisplay.id = 'tempDisplay'
-    tempDisplay.textContent = ` ${(temp - 273.15).toFixed()}°C`;
-    tempDisplay.prepend(tempIcon)
-    card.appendChild(tempDisplay);
-    
-    // Humidity
-    let humidityIcon = document.createElement('img');
-    humidityIcon.src = './icons/cardIcons/humidity.svg';
-    humidityIcon.id = 'humidityIcon'
-
-    let humidityDisplay = document.createElement('p');
-    humidityDisplay.id = 'humidityDisplay'
-    humidityDisplay.textContent = ` Humidity : ${humidity} %`;
-    humidityDisplay.prepend(humidityIcon)
-    card.appendChild(humidityDisplay);
-
-    // Feels Like
-    let feelsIcon = document.createElement('img');
-    feelsIcon.src = './icons/cardIcons/thermometer.svg';
-    feelsIcon.id = 'feelsIcon'
-
-    let feelsLikeDisplay = document.createElement('p');
-    feelsLikeDisplay.id = 'feelsLikeDisplay'
-    feelsLikeDisplay.textContent = ` Feels like : ${(feels_like - 273.15).toFixed()}°C`;
-    feelsLikeDisplay.prepend(feelsIcon)
-    card.appendChild(feelsLikeDisplay);
-
-    //Wind and speed wind
-    let windIcon = document.createElement('img');
-    windIcon.src = './icons/cardIcons/wind.svg';
-    windIcon.id = 'windIcon'
-    
-    let speedIcon = document.createElement('img');
-    speedIcon.src = './icons/cardIcons/windsock.svg';
-    speedIcon.id = 'speedIcon'
-
-    let windDisplay = document.createElement('d');
-    let windSpan = document.createElement('span');
-    let speedSpan = document.createElement('span');
-
-    windSpan.classList.add('windSpan');
-    speedSpan.classList.add('windSpan');
-    
-    windSpan.textContent = `  ${deg} degrees \t||\u0009`
-    speedSpan.textContent = `${speed} meters/s`;
-    windDisplay.id = 'windDisplay';
-
-    windDisplay.prepend(windIcon);
-    windDisplay.append(windSpan);
-    windDisplay.append(speedSpan);
-    windDisplay.append(speedIcon)
-    card.appendChild(windDisplay);
-
-    // Description
-    let descriptionDisplay = document.createElement('p');
-    descriptionDisplay.style.fontWeight = '900';
-    descriptionDisplay.id = 'descriptionDisplay'
-    descriptionDisplay.textContent = description;
-    descriptionDisplay.style.maxHeight = '40px';
-    descriptionDisplay.style.display = 'flex'
-    card.appendChild(descriptionDisplay);
-    
-
-    // The country : 
+async function displayData(data) {
+    const { name: city, main: { temp, humidity, feels_like }, weather: [{ description, icon }], sys: { country }, timezone: timezone, wind: { deg, speed }, } = data;
+    cityText.innerHTML = `&nbsp;${city}`;
+    let temperature = (temp - 273.15).toFixed();
+    // Avoid display like {-0°C}
+    temperature === "-0" ? (temperature = "0") : true;
+    temperatureText.textContent = `Temperature : ${temperature}°C`;
+    let feels_like_fixed = (feels_like - 273.15).toFixed();
+    // Same thing here
+    feels_like_fixed === "-0" ? (feels_like_fixed = "0") : true;
+    temperatureFlText.textContent = ` Feels like : ${feels_like_fixed}°C`;
+    humidityText.textContent = ` Humidity : ${humidity} %`;
+    windDeg.textContent = `Wind Direction : ${deg} degrees`;
+    windSpeed.textContent = `Wind Speed : ${speed} meters/s`;
+    description.length > 17
+        ? descriptionText.classList.remove("indent-12")
+        : descriptionText.classList.add("indent-12");
+    descriptionText.textContent = description;
     let countryCode = country;
-    let countryDisplay = document.createElement('p');
-    countryDisplay.id = 'countryCodeDisplay';
-
-    // Fetch the country for ISO3166-1.alpha2.json
-    let actualCountry = await fetchCountry(countryCode)
-    cityDisplay.textContent += `, ${actualCountry}`
-    cityDisplay.prepend(marker)
-    // Get the date of the location
-    
-    let locationDateDisplay = document.createElement('p');
-    locationDateDisplay.id = 'locationDateDisplay';
-    card.appendChild(locationDateDisplay)
-
-    function setting(){
+    //? Fetch the country from ISO3166-1.alpha2.json
+    let actualCountry = await fetchCountry(countryCode);
+    cityText.innerHTML += `,&nbsp;${actualCountry}`;
+    function setDate() {
+        locationDateDisplay.innerHTML = "";
         let locationDate = getLocationDate(timezone);
         let day = locationDate.getDate();
-        let month = locationDate.getMonth();
-        let year = locationDate.getFullYear()
-        let weekDay = locationDate.getDay();
-
-        month = stringMonths(month);
-        weekDay = stringWeekDay(weekDay);
-
+        let year = locationDate.getFullYear();
+        let month = stringMonths(locationDate.getMonth());
+        let weekDay = stringWeekDay(locationDate.getDay());
         let locationHour = pad(locationDate.getHours());
         let locationMins = pad(locationDate.getMinutes());
         let locationsecs = pad(locationDate.getSeconds());
-        let timeIcon = document.createElement('img');
-        timeIcon.src = './icons/cardIcons/date.gif';
-        timeIcon.id = 'timeIcon';
-
-        locationDateDisplay.textContent = ` ${weekDay} ${day} ${month} ${year}, ${locationHour}:${locationMins}:${locationsecs}`;
-        locationDateDisplay.prepend(timeIcon)
+        locationDateDisplay.innerHTML = `<span>${weekDay}</span>
+    <span>${day}</span>
+    <span>${month}</span>
+    <span>${year},</span>
+    <div class="flex items-center justify-center">
+      <span class="size-6 text-center">${locationHour}</span>:
+      <span class="size-6 text-center">${locationMins}</span>:
+      <span class="size-6 text-center">${locationsecs}</span
+    </div>`;
+        locationDateDisplay.classList.remove("invisible");
+        locationDateDisplay.prepend(timeIcon);
     }
-    
-    setInterval(setting, 1000)
+    interval = setInterval(setDate, 1000);
     displayEmoji(icon, descriptionDisplay);
-    
 }
-
-async function fetchCountry(countryCode){
-    let countriesCode = await fetch('ISO3166-1.alpha2.json');
-    countriesCode = await countriesCode.json();
-    const countryName = await countriesCode[countryCode];
-    return await countryName
+async function fetchCountry(countryCode) {
+    let countriesCodeResponse = await fetch("ISO3166-1.alpha2.json");
+    let countriesCode = await countriesCodeResponse.json();
+    const countryName = countriesCode[countryCode];
+    return countryName;
 }
-
-function getLocationDate(timezone){
+function getLocationDate(timezone) {
     let locationDate;
-    let actualDate = (new Date()).toString()
+    let actualDate = new Date().toString();
     let firstSlice;
-    let minus;
-    if(actualDate.indexOf('+') == -1){
-        firstSlice = actualDate.slice(actualDate.indexOf('-') + 1);
-        minus = true;
+    let minus = true;
+    if (actualDate.indexOf("+") == -1) {
+        firstSlice = actualDate.slice(actualDate.indexOf("-") + 1);
     }
-    else{
-        firstSlice = actualDate.slice(actualDate.indexOf('+') + 1);
+    else {
+        firstSlice = actualDate.slice(actualDate.indexOf("+") + 1);
+        minus = false;
     }
-    
-    let gmt = firstSlice.slice(0, firstSlice.indexOf(' '));
-    gmt = Number(gmt);
+    let gmt = Number(firstSlice.slice(0, firstSlice.indexOf(" ")));
     gmt = gmt / 100;
-
-    /* The previous part get the user current gmt+value or gmt-value, I get this 'value'
-    So if somebody hasn't the same timezone than me, it still works.*/
-    
-    if(minus){
-        locationDate = new Date(Date.now() + timezone * 1000 + 3600000 * gmt)
+    // !The previous part get the user current gmt+`value` or gmt-`value`, I get this 'value'
+    // !So if somebody hasn't the same timezone than me, it still works.
+    if (minus) {
+        locationDate = new Date(Date.now() + timezone * 1000 + 3600000 * gmt);
     }
-    else{
-        locationDate = new Date(Date.now() + timezone * 1000 - 3600000 * gmt)
+    else {
+        locationDate = new Date(Date.now() + timezone * 1000 - 3600000 * gmt);
     }
     return locationDate;
 }
-
-function pad(unit){
+function pad(unit) {
     return unit < 10 ? "0" + unit : unit;
 }
-
-
-function stringMonths(month){
-    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+function stringMonths(month) {
+    let months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ];
     return months[month];
 }
-
-function stringWeekDay(day){
-    let days = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+function stringWeekDay(day) {
+    let days = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+    ];
     return days[day];
 }
-
-function padDate(day){
-    return day <= 9 ? "0" + day : day;
-}
- 
-function displayEmoji(icon, descriptionDisplay){
-
-    let weatherIcon = document.createElement("img");
-    weatherIcon.style.height = '50px'
-    weatherIcon.style.width = '50px';
-    weatherIcon.src = `./icons/Openweathermap/${icon}.svg`
-    weatherIcon.id = 'weatherIcon';
+function displayEmoji(icon, descriptionDisplay) {
+    weatherIcon.src = `./icons/Openweathermap/${icon}.svg`;
     descriptionDisplay.appendChild(weatherIcon);
-    
-    let string = String(icon);
-    let body = document.body;
-    let sunOrMoon = document.querySelector('#sunOrMoon')
-    let submitButtons = document.querySelectorAll(".submitButtons")
-    if(string.indexOf("n") != -1){
-        body.classList.remove('dayBodyClass');
-        body.classList.add('nightBodyClass');
-        
-        descriptionDisplay.style.color = 'whitesmoke';
-        marker.src = './icons/cardIcons/markerNight.png';
-        marker.style.height = '20px';
-        sunOrMoon.src  = './icons/titleIcons/clear-night.svg';
-        submitButtons.forEach((submitButton) =>{
-            submitButton.classList.add('submitNight');
-        })
+    if (icon.indexOf("n") != -1) {
+        document.body.classList.add("weatherNightImg");
+        document.body.classList.remove("weatherDayImg");
+        marker.src = "./icons/cardIcons/markerNight.png";
+        sunOrMoon.src = "./icons/titleIcons/clear-night.svg";
     }
-    else{
-        body.classList.remove('nightBodyClass');
-        body.classList.add('dayBodyClass');
-
-        sunOrMoon.src  = './icons/titleIcons/clear-day.svg'
-
-        submitButtons.forEach((submitButton) =>{
-            submitButton.classList.remove('submitNight');
-    })
+    else {
+        document.body.classList.add("weatherDayImg");
+        document.body.classList.remove("weatherNightImg");
+        marker.src = "./icons/cardIcons/marker.png";
+        sunOrMoon.src = "./icons/titleIcons/clear-day.svg";
     }
 }
-
-function displayFooter(footer, displayft){
-    if(displayft){
-        footer.style.display = 'flex';
-    }
-}
+export {};
